@@ -86,6 +86,7 @@
     <Compile Include="Helper\WorkspaceHelper.cs" />
     <Compile Include="Helper\AuthorizedRequestBuilder.cs" />
     <Compile Include="LogTestInfoAttribute.cs" />
+    <Compile Include="ProjectsApiTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Toggl.Ultrawave\Toggl.Ultrawave.csproj">

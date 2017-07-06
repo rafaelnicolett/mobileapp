@@ -44,6 +44,24 @@ namespace Toggl.Foundation.Tests.MvvmCross.ViewModels
                 if (timeEntries.Length > 0)
                     ViewModel.TimeEntries.Should().Contain(timeEntries);
             }
+
+            [Property]
+            public void TimeEntriesAreOrdered(TimeEntry[] timeEntries)
+            {
+                if (timeEntries.Length == 0) return;
+                ViewModel.TimeEntries.Clear();
+                var observable = Observable.Return(timeEntries);
+                DataSource.TimeEntries.GetAll().Returns(observable);
+
+                ViewModel.Initialize().Wait();
+
+                for (int i = 1; i < ViewModel.TimeEntries.Count; i++)
+                {
+                    var start1 = ViewModel.TimeEntries[i - 1].Start;
+                    var start2 = ViewModel.TimeEntries[i].Start;
+                    start1.Should().BeBefore(start2);
+                }
+            }
         }
 
         public class TheProjectsProperty : BaseViewModelTests<TimelineViewModel>

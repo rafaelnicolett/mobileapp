@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Core.ViewModels;
@@ -29,8 +31,16 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         {
             await base.Initialize();
 
-            TimeEntries.AddRange(await dataSource.TimeEntries.GetAll());
+            await dataSource.TimeEntries
+                            .GetAll()
+                            .Select(orderList)
+                            .ForEachAsync(TimeEntries.AddRange);
+            
             Projects.AddRange(await dataSource.Projects.GetAll());
         }
+
+        private IOrderedEnumerable<ITimeEntry> orderList(IEnumerable<ITimeEntry> timeEntries)
+            => timeEntries.OrderBy(te => te.Start);
+
     }
 }

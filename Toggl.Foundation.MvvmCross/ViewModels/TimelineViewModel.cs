@@ -15,6 +15,9 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         public ObservableCollection<ITimeEntry> TimeEntries { get; }
             = new ObservableCollection<ITimeEntry>();
 
+        public ObservableCollection<IProject> Projects { get; }
+            = new ObservableCollection<IProject>();
+
         public TimelineViewModel(ITogglDataSource dataSource)
         {
             Ensure.Argument.IsNotNull(dataSource, nameof(dataSource));
@@ -27,6 +30,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             await base.Initialize();
 
             TimeEntries.AddRange(await dataSource.TimeEntries.GetAll());
+            Projects.AddRange(await dataSource.Projects.GetAll());
         }
     }
 }

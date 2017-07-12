@@ -1,5 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
 
             await dataSource.TimeEntries
                             .GetAll()
+                            .Select(fromThisWeek)
                             .Select(orderList)
                             .ForEachAsync(TimeEntries.AddRange);
             
@@ -42,5 +44,14 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         private IOrderedEnumerable<ITimeEntry> orderList(IEnumerable<ITimeEntry> timeEntries)
             => timeEntries.OrderBy(te => te.Start);
 
+        private IEnumerable<ITimeEntry> fromThisWeek(IEnumerable<ITimeEntry> timeEntries)
+        {
+            var week = TimeSpan.FromDays(7);
+            return timeEntries.Where(te =>
+            {
+                var delta = DateTime.Now - te.Start;
+                return delta <= week;
+            });
+        }
     }
 }

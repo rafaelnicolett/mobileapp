@@ -4,9 +4,11 @@ using FluentAssertions;
 using FsCheck.Xunit;
 using NSubstitute;
 using Toggl.Foundation.MvvmCross.ViewModels;
+using Toggl.Multivac.Models;
 using Toggl.Ultrawave;
 using Toggl.Ultrawave.Models;
 using Xunit;
+using static Toggl.Multivac.Extensions.FunctionalExtensions;
 
 namespace Toggl.Foundation.Tests.MvvmCross.ViewModels
 {
@@ -32,7 +34,7 @@ namespace Toggl.Foundation.Tests.MvvmCross.ViewModels
                 => new TimelineViewModel(DataSource);
 
             [Property]
-            public void ReturnsAllTimeEntries(TimeEntry[] timeEntries)
+            public void ReturnsTimeEntriesFromThisWeek(TimeEntry[] timeEntries)
             {
                 ViewModel.TimeEntries.Clear();
                 var observable = Observable.Return(timeEntries);
@@ -40,9 +42,16 @@ namespace Toggl.Foundation.Tests.MvvmCross.ViewModels
 
                 ViewModel.Initialize().Wait();
 
-                ViewModel.TimeEntries.Should().HaveCount(timeEntries.Length);
                 if (timeEntries.Length > 0)
-                    ViewModel.TimeEntries.Should().Contain(timeEntries);
+                    ViewModel.TimeEntries
+                             .ForEach(assertIsInThisWeek);
+            }
+
+            private void assertIsInThisWeek(ITimeEntry timeEnry)
+            {
+                var week = TimeSpan.FromDays(7);
+                var delta = DateTime.Now - timeEnry.Start;
+                delta.Should().BeLessThan(week);
             }
 
             [Property]

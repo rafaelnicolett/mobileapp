@@ -180,18 +180,25 @@
     <Compile Include="Login\LoginManagerTests.cs" />
     <Compile Include="MvvmCross\ViewModels\LoginViewModelTests.cs" />
     <Compile Include="MvvmCross\ViewModels\BaseViewModelTests.cs" />
-    <Compile Include="MvvmCross\ViewModels\TimeEntriesViewModelTests.cs" />
+    <Compile Include="MvvmCross\ViewModels\TimeEntriesLogViewModelTests.cs" />
     <Compile Include="MvvmCross\ViewModels\OnboardingViewModelTests.cs" />
     <Compile Include="MvvmCross\Converters\SecondsToDurationValueConverterTests.cs" />
+    <Compile Include="Suggestions\MostUsedTimeEntryProviderTests.cs" />
     <Compile Include="MvvmCross\BaseMvvmCrossTests.cs" />
     <Compile Include="MvvmCross\AppStartTests.cs" />
     <Compile Include="MvvmCross\ViewModels\TimelineViewModelTests.cs" />
+    <Compile Include="Generators\ViewModelGenerators.cs" />
+    <Compile Include="MvvmCross\ViewModels\SuggestionsViewModelTests.cs" />
+    <Compile Include="Suggestions\SuggestionProviderContainerTests.cs" />
+    <Compile Include="MvvmCross\Converters\DateToTitleStringValueConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Login\" />
     <Folder Include="MvvmCross\" />
     <Folder Include="MvvmCross\ViewModels\" />
     <Folder Include="MvvmCross\Converters\" />
+    <Folder Include="Suggestions\" />
+    <Folder Include="Generators\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

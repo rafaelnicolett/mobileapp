@@ -33,13 +33,15 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="App.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\TimeEntriesViewModel.cs" />
+    <Compile Include="ViewModels\TimeEntriesLogViewModel.cs" />
     <Compile Include="ViewModels\OnboardingViewModel.cs" />
     <Compile Include="Helper\Color.cs" />
     <Compile Include="Helper\Animation.cs" />
     <Compile Include="Parameters\LoginParameter.cs" />
     <Compile Include="Converters\SecondsToDurationValueConverter.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
+    <Compile Include="Converters\DateToTitleStringValueConverter.cs" />
+    <Compile Include="ViewModels\SuggestionsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Reactive.Interfaces">

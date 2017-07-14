@@ -52,12 +52,18 @@
     <Compile Include="Login\IApiFactory.cs" />
     <Compile Include="Login\LoginManager.cs" />
     <Compile Include="DataSources\ProjectsDataSource.cs" />
+    <Compile Include="Suggestions\MostUsedTimeEntryProvider.cs" />
+    <Compile Include="Suggestions\Interfaces\ISuggestionProvider.cs" />
+    <Compile Include="Suggestions\Interfaces\ISuggestionProviderContainer.cs" />
+    <Compile Include="Suggestions\SuggestionProviderContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataSources\" />
     <Folder Include="DataSources\Interfaces\" />
     <Folder Include="Models\" />
     <Folder Include="Login\" />
+    <Folder Include="Suggestions\" />
+    <Folder Include="Suggestions\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Toggl.Multivac\Toggl.Multivac.csproj">

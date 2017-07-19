@@ -36,17 +36,15 @@ namespace Toggl.Foundation.Models
 
         public DateTimeOffset At { get; }
 
-        public DateTimeOffset CreatedAt { get; }
-
         public DateTimeOffset? ServerDeletedAt { get; }
 
         public string Color { get; }
 
-        public bool Billable { get; }
+        public bool? Billable { get; }
 
-        public bool Template { get; }
+        public bool? Template { get; }
 
-        public bool AutoEstimates { get; }
+        public bool? AutoEstimates { get; }
 
         public int? EstimatedHours { get; }
 
@@ -54,7 +52,7 @@ namespace Toggl.Foundation.Models
 
         public string Currency { get; }
 
-        public int ActualHours { get; }
+        public int? ActualHours { get; }
 
         public bool IsDirty { get; }
     }

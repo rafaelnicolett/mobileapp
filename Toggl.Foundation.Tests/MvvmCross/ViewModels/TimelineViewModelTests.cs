@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Reactive.Linq;
 using FluentAssertions;
+using FsCheck;
 using FsCheck.Xunit;
 using NSubstitute;
 using Toggl.Foundation.MvvmCross.ViewModels;
+using Toggl.Foundation.Tests.Generators;
 using Toggl.Multivac.Models;
+using Toggl.PrimeRadiant.Models;
 using Toggl.Ultrawave;
 using Toggl.Ultrawave.Models;
 using Xunit;
@@ -27,27 +30,23 @@ namespace Toggl.Foundation.Tests.MvvmCross.ViewModels
             }
         }
 
-        public class TheTimeEntriesProperty : BaseViewModelTests<TimelineViewModel>
+        public class TheTimeEntriesProperty
         {
-
-            protected override TimelineViewModel CreateViewModel()
-                => new TimelineViewModel(DataSource);
-
             [Property]
-            public void ReturnsTimeEntriesFromThisWeek(TimeEntry[] timeEntries)
+            public Property ReturnsTimeEntriesFromThisWeek()
             {
-                ViewModel.TimeEntries.Clear();
-                var observable = Observable.Return(timeEntries);
-                DataSource.TimeEntries.GetAll().Returns(observable);
+                var generator = ViewModelGenerators.ForTimelineViewModel().ToArbitrary();
+                return Prop.ForAll<TimelineViewModel>(generator, viewModel => 
+                {
+                    viewModel.Initialize().Wait();
 
-                ViewModel.Initialize().Wait();
-
-                if (timeEntries.Length > 0)
-                    ViewModel.TimeEntries
-                             .ForEach(assertIsInThisWeek);
+                    if (viewModel.TimeEntries.Count > 0)
+                        viewModel.TimeEntries
+                                 .ForEach(assertIsInThisWeek);
+                });
             }
 
-            private void assertIsInThisWeek(ITimeEntry timeEnry)
+            private void assertIsInThisWeek(TimelineTimeEntryViewModel timeEnry)
             {
                 var week = TimeSpan.FromDays(7);
                 var delta = DateTime.Now - timeEnry.Start;
@@ -55,41 +54,21 @@ namespace Toggl.Foundation.Tests.MvvmCross.ViewModels
             }
 
             [Property]
-            public void TimeEntriesAreOrdered(TimeEntry[] timeEntries)
+            public Property TimeEntriesAreOrdered()
             {
-                if (timeEntries.Length == 0) return;
-                ViewModel.TimeEntries.Clear();
-                var observable = Observable.Return(timeEntries);
-                DataSource.TimeEntries.GetAll().Returns(observable);
-
-                ViewModel.Initialize().Wait();
-
-                for (int i = 1; i < ViewModel.TimeEntries.Count; i++)
+                var generator = ViewModelGenerators.ForTimelineViewModel().ToArbitrary();
+                return Prop.ForAll(generator, viewModel =>
                 {
-                    var start1 = ViewModel.TimeEntries[i - 1].Start;
-                    var start2 = ViewModel.TimeEntries[i].Start;
-                    start1.Should().BeBefore(start2);
-                }
-            }
-        }
+                    viewModel.Initialize().Wait();
+                    if (viewModel.TimeEntries.Count == 0) return;
 
-        public class TheProjectsProperty : BaseViewModelTests<TimelineViewModel>
-        {
-            protected override TimelineViewModel CreateViewModel()
-                => new TimelineViewModel(DataSource);
-
-            [Property]
-            public void ReturnsAllProjects(Project[] projects)
-            {
-                ViewModel.Projects.Clear();
-                var observable = Observable.Return(projects);
-                DataSource.Projects.GetAll().Returns(observable);
-
-                ViewModel.Initialize().Wait();
-
-                ViewModel.Projects.Should().HaveCount(projects.Length);
-                if (projects.Length > 0)
-                    ViewModel.Projects.Should().Contain(projects);
+                    for (int i = 1; i < viewModel.TimeEntries.Count; i++)
+                    {
+                        var start1 = viewModel.TimeEntries[i - 1].Start;
+                        var start2 = viewModel.TimeEntries[i].Start;
+                        start1.Should().BeOnOrBefore(start2);
+                    }
+                });
             }
         }
     }

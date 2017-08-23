@@ -8,6 +8,7 @@ using MvvmCross.Core.ViewModels;
 using Toggl.Foundation.DataSources;
 using Toggl.Multivac;
 using Toggl.Multivac.Models;
+using static Toggl.Multivac.Extensions.ObservableCollectionExtensions;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {

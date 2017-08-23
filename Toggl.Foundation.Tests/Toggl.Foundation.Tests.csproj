@@ -204,6 +204,7 @@
     <Compile Include="MvvmCross\Converters\TimeSpanToDurationWithUnitValueConverterTests.cs" />
     <Compile Include="MvvmCross\ViewModels\TimeEntryViewModelTests.cs" />
     <Compile Include="MvvmCross\ViewModels\TimeEntryViewModelCollectionTests.cs" />
+    <Compile Include="MvvmCross\ViewModels\TimelineViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MvvmCross\ViewModels\StartTimeEntryViewModelTests.cs" />

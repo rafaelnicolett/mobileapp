@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -22,15 +22,17 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\Toggl.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
-     <Optimize>true</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>..\bin\Release</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\Toggl.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -153,26 +155,26 @@
     <Reference Include="FsCheck.Xunit">
       <HintPath>..\packages\FsCheck.Xunit.2.9.0\lib\net452\FsCheck.Xunit.dll</HintPath>
     </Reference>
-    <Reference Include="MvvmCross.Platform">
-      <HintPath>..\packages\MvvmCross.Platform.5.0.5\lib\net45\MvvmCross.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmCross.Platform.Wpf">
-      <HintPath>..\packages\MvvmCross.Platform.5.0.5\lib\net45\MvvmCross.Platform.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmCross.Core">
-      <HintPath>..\packages\MvvmCross.Core.5.0.5\lib\net45\MvvmCross.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmCross.Wpf">
-      <HintPath>..\packages\MvvmCross.Core.5.0.5\lib\net45\MvvmCross.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="MvvmCross.Test.Core">
-      <HintPath>..\packages\MvvmCross.Tests.5.0.5\lib\portable45-net45+win8+wp8+wpa81\MvvmCross.Test.Core.dll</HintPath>
-    </Reference>
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.4.19.3\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Platform">
+      <HintPath>..\packages\MvvmCross.Platform.5.1.1\lib\net45\MvvmCross.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Platform.Wpf">
+      <HintPath>..\packages\MvvmCross.Platform.5.1.1\lib\net45\MvvmCross.Platform.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Core">
+      <HintPath>..\packages\MvvmCross.Core.5.1.1\lib\net45\MvvmCross.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Wpf">
+      <HintPath>..\packages\MvvmCross.Core.5.1.1\lib\net45\MvvmCross.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Test.Core">
+      <HintPath>..\packages\MvvmCross.Tests.5.1.1\lib\portable45-net45+win8+wp8+wpa81\MvvmCross.Test.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -182,18 +184,34 @@
     <Compile Include="MvvmCross\ViewModels\BaseViewModelTests.cs" />
     <Compile Include="MvvmCross\ViewModels\TimeEntriesLogViewModelTests.cs" />
     <Compile Include="MvvmCross\ViewModels\OnboardingViewModelTests.cs" />
-    <Compile Include="MvvmCross\Converters\SecondsToDurationValueConverterTests.cs" />
+    <Compile Include="MvvmCross\Converters\TimeSpanToDurationValueConverterTests.cs" />
+    <Compile Include="Sync\StateMachineOrchestratorTests.cs" />
     <Compile Include="Sync\StateMachineTests.cs" />
+    <Compile Include="Sync\States\FetchAllSinceStateTests.cs" />
+    <Compile Include="Sync\StateTreeTests.cs" />
+    <Compile Include="Sync\SyncManagerTests.cs" />
+    <Compile Include="Sync\SyncStateQueueTests.cs" />
     <Compile Include="TestExtensions\ReactiveExtensions.cs" />
     <Compile Include="Suggestions\MostUsedTimeEntryProviderTests.cs" />
     <Compile Include="MvvmCross\BaseMvvmCrossTests.cs" />
     <Compile Include="MvvmCross\AppStartTests.cs" />
-    <Compile Include="MvvmCross\ViewModels\TimelineViewModelTests.cs" />
     <Compile Include="Generators\ViewModelGenerators.cs" />
     <Compile Include="MvvmCross\ViewModels\SuggestionsViewModelTests.cs" />
     <Compile Include="Suggestions\SuggestionProviderContainerTests.cs" />
     <Compile Include="MvvmCross\Converters\DateToTitleStringValueConverterTests.cs" />
     <Compile Include="MvvmCross\ViewModels\MainViewModelTests.cs" />
+    <Compile Include="DataSources\TimeEntriesDataSourceTests.cs" />
+    <Compile Include="MvvmCross\Converters\TimeSpanToDurationWithUnitValueConverterTests.cs" />
+    <Compile Include="MvvmCross\ViewModels\TimeEntryViewModelTests.cs" />
+    <Compile Include="MvvmCross\ViewModels\TimeEntryViewModelCollectionTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MvvmCross\ViewModels\StartTimeEntryViewModelTests.cs" />
+    <Compile Include="DataSources\TogglDataSourceTests.cs" />
+    <Compile Include="MvvmCross\ViewModels\SettingsViewModelTests.cs" />
+    <Compile Include="MvvmCross\ViewModels\EditTimeEntryViewModelTests.cs" />
+    <Compile Include="TimeServiceTests.cs" />
+    <Compile Include="Generators\ConstructorTestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -219,6 +237,11 @@
       <Project>{B4E4943F-0574-4BEF-9ADC-B19102458754}</Project>
       <Name>Toggl.Ultrawave</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

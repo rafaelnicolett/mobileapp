@@ -60,6 +60,7 @@
     <Compile Include="ViewModels\ProjectSuggestionViewModel.cs" />
     <Compile Include="Converters\BoolToConstantValueConverter.cs" />
     <Compile Include="ViewModels\TimelineViewModel.cs" />
+    <Compile Include="ViewModels\TimeLineTimeEntryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Reactive.Interfaces">

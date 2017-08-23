@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using MvvmCross.Core.ViewModels;
 using Toggl.Foundation.DataSources;
 using Toggl.Multivac;
-using Toggl.Multivac.Models;
-using static Toggl.Multivac.Extensions.ObservableCollectionExtensions;
+using Toggl.Multivac.Extensions;
+using Toggl.PrimeRadiant.Models;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
@@ -16,11 +16,8 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
     {
         private readonly ITogglDataSource dataSource;
 
-        public ObservableCollection<ITimeEntry> TimeEntries { get; }
-            = new ObservableCollection<ITimeEntry>();
-
-        public ObservableCollection<IProject> Projects { get; }
-            = new ObservableCollection<IProject>();
+        public ObservableCollection<TimeLineTimeEntryViewModel> TimeEntries { get; }
+            = new ObservableCollection<TimeLineTimeEntryViewModel>();
 
         public TimelineViewModel(ITogglDataSource dataSource)
         {
@@ -37,15 +34,14 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
                             .GetAll()
                             .Select(fromThisWeek)
                             .Select(orderList)
-                            .ForEachAsync(TimeEntries.AddRange);
-            
-            Projects.AddRange(await dataSource.Projects.GetAll());
+                            .Select(timeEntries => timeEntries.Select(te => new TimeLineTimeEntryViewModel(te)))
+                            .Do(TimeEntries.AddRange);
         }
 
-        private IOrderedEnumerable<ITimeEntry> orderList(IEnumerable<ITimeEntry> timeEntries)
+        private IOrderedEnumerable<IDatabaseTimeEntry> orderList(IEnumerable<IDatabaseTimeEntry> timeEntries)
             => timeEntries.OrderBy(te => te.Start);
 
-        private IEnumerable<ITimeEntry> fromThisWeek(IEnumerable<ITimeEntry> timeEntries)
+        private IEnumerable<IDatabaseTimeEntry> fromThisWeek(IEnumerable<IDatabaseTimeEntry> timeEntries)
         {
             var week = TimeSpan.FromDays(7);
             return timeEntries.Where(te =>

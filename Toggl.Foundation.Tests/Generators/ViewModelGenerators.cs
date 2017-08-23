@@ -17,7 +17,7 @@ namespace Toggl.Foundation.Tests.Generators
         {
             var monthsGenerator = Gen.Choose(1, 12).Where(filter);
             var yearGenerator = Gen.Choose(2007, DateTime.UtcNow.Year);
-            
+
             return Arb.Default
                 .Array<DateTimeOffset>()
                 .Generator

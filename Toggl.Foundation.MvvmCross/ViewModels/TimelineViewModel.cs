@@ -12,7 +12,7 @@ using Toggl.PrimeRadiant.Models;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
-    public class TimelineViewModel : MvxViewModel
+    public sealed class TimelineViewModel : MvxViewModel
     {
         private readonly ITogglDataSource dataSource;
 
@@ -33,14 +33,12 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             await dataSource.TimeEntries
                             .GetAll()
                             .Select(fromThisWeek)
+                            .Select(notCurrentlyRunning)
                             .Select(orderList)
                             .Select(timeEntries => timeEntries.Select(te => new TimeLineTimeEntryViewModel(te)))
                             .Do(TimeEntries.AddRange);
         }
-
-        private IOrderedEnumerable<IDatabaseTimeEntry> orderList(IEnumerable<IDatabaseTimeEntry> timeEntries)
-            => timeEntries.OrderBy(te => te.Start);
-
+        
         private IEnumerable<IDatabaseTimeEntry> fromThisWeek(IEnumerable<IDatabaseTimeEntry> timeEntries)
         {
             var week = TimeSpan.FromDays(7);
@@ -50,5 +48,11 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
                 return delta <= week;
             });
         }
+
+        private IEnumerable<IDatabaseTimeEntry> notCurrentlyRunning(IEnumerable<IDatabaseTimeEntry> timeEntries)
+            => timeEntries.Where(te => te.Stop != null);
+
+        private IOrderedEnumerable<IDatabaseTimeEntry> orderList(IEnumerable<IDatabaseTimeEntry> timeEntries)
+            => timeEntries.OrderBy(te => te.Start);
     }
 }

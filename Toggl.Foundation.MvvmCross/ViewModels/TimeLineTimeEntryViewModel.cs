@@ -19,7 +19,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             Ensure.Argument.IsNotNull(timeEntry, nameof(timeEntry));
 
             if (timeEntry.Stop == null)
-                throw new ArgumentException("Can't use running time entry (Stop must be set).");
+                throw new ArgumentException($"Can't use running time entry ({nameof(Stop)} must be set).");
 
             Start = timeEntry.Start;
             Stop = timeEntry.Stop.Value;

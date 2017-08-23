@@ -16,8 +16,8 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
     {
         private readonly ITogglDataSource dataSource;
 
-        public ObservableCollection<TimeLineTimeEntryViewModel> TimeEntries { get; }
-            = new ObservableCollection<TimeLineTimeEntryViewModel>();
+        public ObservableCollection<TimelineTimeEntryViewModel> TimeEntries { get; }
+            = new ObservableCollection<TimelineTimeEntryViewModel>();
 
         public TimelineViewModel(ITogglDataSource dataSource)
         {
@@ -35,7 +35,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
                             .Select(fromThisWeek)
                             .Select(notCurrentlyRunning)
                             .Select(orderList)
-                            .Select(timeEntries => timeEntries.Select(te => new TimeLineTimeEntryViewModel(te)))
+                            .Select(timeEntries => timeEntries.Select(te => new TimelineTimeEntryViewModel(te)))
                             .Do(TimeEntries.AddRange);
         }
         

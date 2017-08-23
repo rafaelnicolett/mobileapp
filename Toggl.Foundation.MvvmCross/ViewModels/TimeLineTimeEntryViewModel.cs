@@ -4,7 +4,7 @@ using Toggl.PrimeRadiant.Models;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
-    public class TimeLineTimeEntryViewModel
+    public class TimelineTimeEntryViewModel
     {
         private const string defaultColor = "#CECECE";
 
@@ -14,7 +14,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
 
         public string ProjectColor { get; }
 
-        public TimeLineTimeEntryViewModel(IDatabaseTimeEntry timeEntry)
+        public TimelineTimeEntryViewModel(IDatabaseTimeEntry timeEntry)
         {
             Ensure.Argument.IsNotNull(timeEntry, nameof(timeEntry));
 

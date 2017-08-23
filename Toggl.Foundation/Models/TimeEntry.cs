@@ -21,6 +21,8 @@ namespace Toggl.Foundation.Models
 
             public DateTimeOffset Start { get; private set; }
 
+            public DateTimeOffset? Stop { get; private set; }
+
             private Builder(long id) 
             {
                 Id = id;
@@ -35,6 +37,12 @@ namespace Toggl.Foundation.Models
             public Builder SetStart(DateTimeOffset start)
             {
                 Start = start;
+                return this;
+            }
+
+            public Builder SetStop(DateTimeOffset stop)
+            {
+                Stop = stop;
                 return this;
             }
 
@@ -78,6 +86,7 @@ namespace Toggl.Foundation.Models
         private TimeEntry(Builder builder)
         {
             Id = builder.Id;
+            Stop = builder.Stop;
             Start = builder.Start;
             IsDirty = builder.IsDirty;
             Billable = builder.Billable;

@@ -4,7 +4,7 @@ using Toggl.PrimeRadiant.Models;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
-    public class TimelineTimeEntryViewModel
+    public sealed class TimelineTimeEntryViewModel
     {
         private const string defaultColor = "#CECECE";
 

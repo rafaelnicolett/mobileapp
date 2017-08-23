@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentAssertions;
+using Toggl.Multivac.Models;
 using Toggl.Ultrawave.Models;
 using Xunit;
 
@@ -9,18 +11,38 @@ namespace Toggl.Ultrawave.Tests.Models
     {
         public class TheWorkspaceModel
         {
+            [Fact]
+            public void HasPublicParameterlessConstructorForSeliasaition()
+            {
+                var constructor = typeof(Workspace).GetConstructor(Type.EmptyTypes);
+
+                constructor.Should().NotBeNull();
+                constructor.IsPublic.Should().BeTrue();
+            }
+
+            [Fact]
+            public void HasConstructorWhichCopiesValuesFromInterfaceToTheNewInstance()
+            {
+                var clonedObject = Activator.CreateInstance(typeof(Workspace), completeObject);
+
+                clonedObject.Should().NotBeSameAs(completeObject);
+                clonedObject.ShouldBeEquivalentTo(completeObject, options => options.IncludingProperties());
+            }
+
             [Theory]
             [MemberData("SerializationCases")]
-            public void CanBeSerialized(string validJson, Workspace validObject)
+            public void CanBeSerialized(string validJson, object validObject)
             {
-                SerializationHelper.CanBeSerialized(validJson, validObject);
+                var validWorkspace = (Workspace)validObject;
+                SerializationHelper.CanBeSerialized(validJson, validWorkspace);
             }
             
             [Theory]
             [MemberData("DeserializationCases")]
-            public void CanBeDeserialized(string validJson, Workspace validObject)
+            public void CanBeDeserialized(string validJson, object validObject)
             {
-                SerializationHelper.CanBeDeserialized(validJson, validObject);
+                var validWorkspace = (Workspace)validObject;
+                SerializationHelper.CanBeDeserialized(validJson, validWorkspace);
             }
 
             public static IEnumerable<object[]> SerializationCases

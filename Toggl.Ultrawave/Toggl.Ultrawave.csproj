@@ -20,22 +20,48 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\Toggl.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>..\bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\Toggl.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ApiClients\Interfaces\IWorkspaceFeaturesApi.cs" />
+    <Compile Include="ApiClients\WorkspaceFeaturesApi.cs" />
+    <Compile Include="Exceptions\ApiDeprecatedException.cs" />
+    <Compile Include="Exceptions\BadGatewayException.cs" />
+    <Compile Include="Exceptions\ClientDeprecatedException.cs" />
+    <Compile Include="Exceptions\ClientErrorException.cs" />
+    <Compile Include="Exceptions\GatewayTimeoutException.cs" />
+    <Compile Include="Exceptions\HttpVersionNotSupportedException.cs" />
+    <Compile Include="Exceptions\InternalServerErrorException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Exceptions\NotImplementedException.cs" />
+    <Compile Include="Exceptions\PaymentRequiredException.cs" />
+    <Compile Include="Exceptions\RequestEntityTooLargeException.cs" />
+    <Compile Include="Exceptions\ServerErrorException.cs" />
+    <Compile Include="Exceptions\BadRequestException.cs" />
+    <Compile Include="Exceptions\ServiceUnavailableException.cs" />
+    <Compile Include="Exceptions\TooManyRequestsException.cs" />
+    <Compile Include="Exceptions\UnauthorizedException.cs" />
+    <Compile Include="Exceptions\UnknownApiErrorException.cs" />
+    <Compile Include="Helpers\ApiExceptions.cs" />
     <Compile Include="Models\TimeEntry.cs" />
+    <Compile Include="Models\WorkspaceFeature.cs" />
+    <Compile Include="Models\WorkspaceFeatureCollection.cs" />
     <Compile Include="Network\Credentials.cs" />
     <Compile Include="Network\Endpoints\Endpoint.cs" />
     <Compile Include="Network\Endpoints\Endpoints.cs" />
     <Compile Include="Network\Endpoints\StatusEndpoints.cs" />
     <Compile Include="Network\Endpoints\UserEndpoints.cs" />
+    <Compile Include="Network\Endpoints\WorkspaceFeaturesEndpoints.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ITogglApi.cs" />
+    <Compile Include="Serialization\ConcreteListTypeConverter.cs" />
     <Compile Include="TogglApi.cs" />
     <Compile Include="ApiClients\TagsApi.cs" />
     <Compile Include="ApiClients\TasksApi.cs" />
@@ -88,7 +114,10 @@
     <Compile Include="Models\Project.cs" />
     <Compile Include="ApiConfiguration.cs" />
     <Compile Include="Network\UserAgent.cs" />
-    <Compile Include="Exceptions\NotAuthorizedException.cs" />
+    <Compile Include="Exceptions\ForbiddenException.cs" />
+    <Compile Include="Models\ModelConstructors.cs">
+      <DependentUpon>ModelConstructors.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Toggl.Multivac\Toggl.Multivac.csproj">
@@ -112,15 +141,21 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Models\ModelConstructors.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelConstructors.cs</LastGenOutput>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Helpers\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Serialization\" />
-    <Folder Include="Serialization\Attributes\" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

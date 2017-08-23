@@ -16,7 +16,8 @@ using LoginType = Toggl.Foundation.MvvmCross.Parameters.LoginParameter.LoginType
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
-    public class LoginViewModel : BaseViewModel<LoginParameter>
+    [Preserve(AllMembers = true)]
+    public class LoginViewModel : MvxViewModel<LoginParameter>
     {
         public const int EmailPage = 0;
         public const int PasswordPage = 1;
@@ -29,6 +30,8 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         private IDisposable passwordManagerDisposable;
 
         private EmailType email = EmailType.Invalid;
+
+        public string Title { get; private set; }
 
         public string Email { get; set; } = "";
 
@@ -165,8 +168,8 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
 
         private void onError(Exception ex)
         {
-            ErrorText = ex is NotAuthorizedException ? Resources.IncorrectEmailOrPassword
-                                                     : Resources.GenericLoginError;
+            ErrorText = ex is ForbiddenException ? Resources.IncorrectEmailOrPassword
+                                                 : Resources.GenericLoginError;
 
             onCompleted();
         }

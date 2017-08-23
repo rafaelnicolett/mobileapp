@@ -9,7 +9,8 @@ using Toggl.Multivac;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
-    public sealed class OnboardingViewModel : BaseViewModel
+    [Preserve(AllMembers = true)]
+    public sealed class OnboardingViewModel : MvxViewModel
     {
         public const int TrackPage = 0;
         public const int LogPage = 1;

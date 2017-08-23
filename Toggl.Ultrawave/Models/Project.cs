@@ -5,15 +5,15 @@ using Toggl.Ultrawave.Serialization;
 
 namespace Toggl.Ultrawave.Models
 {
-    public sealed class Project : IProject
+    internal sealed partial class Project : IProject
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("wid")]
-        public int WorkspaceId { get; set; }
+        public long WorkspaceId { get; set; }
 
         [JsonProperty("cid")]
-        public int? ClientId { get; set; }
+        public long? ClientId { get; set; }
 
         public string Name { get; set; }
 
@@ -41,7 +41,7 @@ namespace Toggl.Ultrawave.Models
         public int? EstimatedHours { get; set; }
 
         [IgnoreWhenPosting]
-        public int? Rate { get; set; }
+        public double? Rate { get; set; }
 
         [IgnoreWhenPosting]
         public string Currency { get; set; }

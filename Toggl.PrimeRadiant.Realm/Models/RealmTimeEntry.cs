@@ -7,32 +7,50 @@ namespace Toggl.PrimeRadiant.Realm
 {
     internal partial class RealmTimeEntry : RealmObject, IDatabaseTimeEntry
     {
-        public int WorkspaceId { get; }
+        public bool Billable { get; set; }
 
-        public int? ProjectId { get; }
+        public DateTimeOffset Start { get; set; }
 
-        public int? TaskId { get; }
+        public DateTimeOffset? Stop { get; set; }
 
-        public bool Billable { get; }
+        public int Duration { get; set; }
 
-        public DateTimeOffset Start { get; }
+        public string Description { get; set; }
 
-        public DateTimeOffset? Stop { get; }
+        public IList<string> TagNames { get; set; }
 
-        public int Duration { get; }
+        public IList<long> TagIds { get; set; }
 
-        public string Description { get; }
+        public DateTimeOffset At { get; set; }
 
-        public IList<string> Tags { get; }
+        public DateTimeOffset? ServerDeletedAt { get; set; }
 
-        public IList<int> TagIds { get; }
+        public string CreatedWith { get; set; }
 
-        public DateTimeOffset At { get; }
+        public bool IsDeleted { get; set; }
 
-        public DateTimeOffset? ServerDeletedAt { get; }
+        public RealmWorkspace RealmWorkspace { get; set; }
 
-        public int UserId { get; }
+        public long WorkspaceId => RealmWorkspace?.Id ?? 0;
 
-        public string CreatedWith { get; }
+        public IDatabaseWorkspace Workspace => RealmWorkspace;
+
+        public RealmProject RealmProject { get; set; }
+
+        public long? ProjectId => RealmProject?.Id;
+
+        public IDatabaseProject Project => RealmProject;
+
+        public RealmTask RealmTask { get; set; }
+
+        public long? TaskId => RealmTask?.Id;
+
+        public IDatabaseTask Task => RealmTask;
+
+        public RealmUser RealmUser { get; set; }
+
+        public long UserId => RealmUser?.Id ?? 0;
+
+        public IDatabaseUser User => RealmUser;
     }
 }

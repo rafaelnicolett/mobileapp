@@ -20,12 +20,14 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\Toggl.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>..\bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\Toggl.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +53,11 @@
     <Compile Include="DataSources\TimeEntriesDataSource.cs" />
     <Compile Include="Login\IApiFactory.cs" />
     <Compile Include="Login\LoginManager.cs" />
+    <Compile Include="Sync\IStateMachineOrchestrator.cs" />
+    <Compile Include="Sync\ISyncManager.cs" />
+    <Compile Include="Sync\ISyncStateQueue.cs" />
+    <Compile Include="Sync\StateMachineEntryPoints.cs" />
+    <Compile Include="Sync\StateMachineOrchestrator.cs" />
     <Compile Include="Sync\StateMachine\IStateMachine.cs" />
     <Compile Include="Sync\StateMachine\ITransitionHandlerProvider.cs" />
     <Compile Include="Sync\StateMachine\StateMachine.cs" />
@@ -64,6 +71,16 @@
     <Compile Include="Suggestions\SuggestionProviderContainer.cs" />
     <Compile Include="Login\ApiFactory.cs" />
     <Compile Include="Login\ILoginManager.cs" />
+    <Compile Include="Sync\States\FetchAllSinceState.cs" />
+    <Compile Include="Sync\States\FetchObservables.cs" />
+    <Compile Include="Sync\TransitionHandlerProvider.cs" />
+    <Compile Include="Sync\SyncManager.cs" />
+    <Compile Include="Sync\SyncState.cs" />
+    <Compile Include="Sync\SyncStateQueue.cs" />
+    <Compile Include="TimeService.cs" />
+    <Compile Include="ITimeService.cs" />
+    <Compile Include="Models\TimeEntry.cs" />
+    <Compile Include="Suggestions\Suggestion.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -107,6 +124,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

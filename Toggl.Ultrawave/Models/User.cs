@@ -5,13 +5,13 @@ using Toggl.Multivac.Models;
 
 namespace Toggl.Ultrawave.Models
 {
-    public sealed class User : IUser
+    internal sealed partial class User : IUser
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string ApiToken { get; set; }
         
-        public int DefaultWorkspaceId { get; set; }
+        public long DefaultWorkspaceId { get; set; }
 
         public string Email { get; set; }
 

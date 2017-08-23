@@ -4,27 +4,27 @@ using Toggl.Multivac.Models;
 
 namespace Toggl.Ultrawave.Models
 {
-    public class Task : ITask
+    internal partial class Task : ITask
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string Name { get; set; }
 
         [JsonProperty("pid")]
-        public int ProjectId { get; set; }
+        public long ProjectId { get; set; }
 
         [JsonProperty("wid")]
-        public int WorkspaceId { get; set; }
+        public long WorkspaceId { get; set; }
 
         [JsonProperty("uid")]
-        public int? UserId { get; set; }
+        public long? UserId { get; set; }
 
-        public int EstimatedSeconds { get; set; }
+        public long EstimatedSeconds { get; set; }
 
         public bool Active { get; set; }
 
         public DateTimeOffset At { get; set; }
 
-        public int TrackedSeconds { get; set; }
+        public long TrackedSeconds { get; set; }
     }
 }

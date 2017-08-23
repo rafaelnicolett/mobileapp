@@ -4,6 +4,12 @@ namespace Toggl.Foundation.MvvmCross.Helper
 {
     public static class Color
     {
+        private static readonly MvxColor lightishGreen = new MvxColor(76, 217, 100);
+        private static readonly MvxColor steel = new MvxColor(142, 142, 147);
+        private static readonly MvxColor darkMint = new MvxColor(76, 190, 100);
+        private static readonly MvxColor pinkishGrey = new MvxColor(206, 206, 206);
+        private static readonly MvxColor black = new MvxColor(46, 46, 46);
+
         internal static class Onboarding
         {
             internal static readonly MvxColor TrackPageBorderColor = new MvxColor(14, 150, 213);
@@ -20,12 +26,29 @@ namespace Toggl.Foundation.MvvmCross.Helper
 
         public static class NavigationBar
         {
+            public static readonly MvxColor BackButton = new MvxColor(94, 91, 91);
             public static readonly MvxColor BackgroundColor = new MvxColor(250, 251, 252);
+        }
+
+        public static class Main
+        {
+            public static readonly MvxColor CardBorder = new MvxColor(232, 232, 232);
         }
 
         public static class TimeEntriesLog
         {
             public static readonly MvxColor ButtonBorder = new MvxColor(243, 243, 243);
+        }
+
+        public static class StartTimeEntry
+        {
+            public static readonly MvxColor Cursor = lightishGreen;
+
+            public static readonly MvxColor Placeholder = pinkishGrey;
+
+            public static readonly MvxColor ActiveButton = lightishGreen;
+
+            public static readonly MvxColor InactiveButton = new MvxColor(181, 188, 192);
         }
     }
 }

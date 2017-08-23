@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F2104" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,12 +12,12 @@
             <connections>
                 <outlet property="ActivityIndicator" destination="l7S-as-iux" id="name-outlet-l7S-as-iux"/>
                 <outlet property="BottomConstraint" destination="kx6-14-c06" id="name-outlet-kx6-14-c06"/>
-                <outlet property="Email" destination="WxQ-t5-Zte" id="name-outlet-WxQ-t5-Zte"/>
+                <outlet property="EmailTextField" destination="WxQ-t5-Zte" id="name-outlet-WxQ-t5-Zte"/>
                 <outlet property="ErrorLabel" destination="3Dj-pA-An9" id="name-outlet-3Dj-pA-An9"/>
-                <outlet property="ForgotPassword" destination="8lc-P8-x4K" id="name-outlet-8lc-P8-x4K"/>
-                <outlet property="Password" destination="965-7g-Gu6" id="name-outlet-965-7g-Gu6"/>
+                <outlet property="ForgotPasswordButton" destination="8lc-P8-x4K" id="name-outlet-8lc-P8-x4K"/>
                 <outlet property="PasswordManagerButton" destination="zrB-CR-ZBC" id="name-outlet-zrB-CR-ZBC"/>
-                <outlet property="ShowPassword" destination="IEZ-w2-ebJ" id="name-outlet-IEZ-w2-ebJ"/>
+                <outlet property="PasswordTextField" destination="965-7g-Gu6" id="name-outlet-965-7g-Gu6"/>
+                <outlet property="ShowPasswordButton" destination="IEZ-w2-ebJ" id="name-outlet-IEZ-w2-ebJ"/>
                 <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
             </connections>
         </placeholder>
@@ -66,6 +65,7 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect email/password. Please try again." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Dj-pA-An9">
                     <rect key="frame" x="16" y="192" width="244" height="15"/>
+                    <accessibility key="accessibilityConfiguration" label="LoginError"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.99121707677841187" green="0.99630099534988403" blue="0.99603599309921265" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>

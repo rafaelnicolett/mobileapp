@@ -5,11 +5,11 @@ namespace Toggl.Multivac.Models
 {
     public interface ITimeEntry : IBaseModel
     {
-        int WorkspaceId { get; }
+        long WorkspaceId { get; }
 
-        int? ProjectId { get; }
+        long? ProjectId { get; }
 
-        int? TaskId { get; }
+        long? TaskId { get; }
 
         bool Billable { get; }
 
@@ -17,19 +17,17 @@ namespace Toggl.Multivac.Models
 
         DateTimeOffset? Stop { get; }
 
-        int Duration { get; }
-
         string Description { get; }
 
-        IList<string> Tags { get; }
+        IList<string> TagNames { get; }
 
-        IList<int> TagIds { get; }
+        IList<long> TagIds { get; }
 
         DateTimeOffset At { get; }
 
         DateTimeOffset? ServerDeletedAt { get; }
 
-        int UserId { get; }
+        long UserId { get; }
 
         string CreatedWith { get; }
     }

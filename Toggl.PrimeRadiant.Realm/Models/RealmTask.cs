@@ -8,18 +8,30 @@ namespace Toggl.PrimeRadiant.Realm
     {
         public string Name { get; set; }
 
-        public int ProjectId { get; set; }
-
-        public int WorkspaceId { get; set; }
-
-        public int? UserId { get; set; }
-
-        public int EstimatedSeconds { get; set; }
+        public long EstimatedSeconds { get; set; }
 
         public bool Active { get; set; }
 
         public DateTimeOffset At { get; set; }
 
-        public int TrackedSeconds { get; set; }
+        public long TrackedSeconds { get; set; }
+
+        public RealmWorkspace RealmWorkspace { get; set; }
+
+        public long WorkspaceId => RealmWorkspace?.Id ?? 0;
+
+        public IDatabaseWorkspace Workspace => RealmWorkspace;
+
+        public RealmProject RealmProject { get; set; }
+
+        public long ProjectId => RealmProject?.Id ?? 0;
+
+        public IDatabaseProject Project => RealmProject;
+
+        public RealmUser RealmUser { get; set; }
+
+        public long? UserId => RealmUser?.Id;
+
+        public IDatabaseUser User => RealmUser;
     }
 }

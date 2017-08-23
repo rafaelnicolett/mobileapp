@@ -1,6 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿
+
+using System.Collections.ObjectModel;
 using FluentAssertions;
 using Xunit;
+using static Toggl.Multivac.Extensions.ObservableCollectionExtensions;
 
 namespace Toggl.Multivac.Tests
 {
@@ -13,7 +16,7 @@ namespace Toggl.Multivac.Tests
             {
                 int[] initialItems = { 1, 2 };
                 int[] newItems = { 3, 4, 5 };
-                var collection = new ObservableCollection<int> (initialItems);
+                var collection = new ObservableCollection<int>(initialItems);
 
                 collection.AddRange(newItems);
 

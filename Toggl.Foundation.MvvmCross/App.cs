@@ -10,21 +10,19 @@ namespace Toggl.Foundation.MvvmCross
 {
     public class App : MvxApplication
     {
-        private readonly AppStart appStart;
+        public override void Initialize()
+        {
+            
+        }
 
-        public App(ILoginManager loginManager, IMvxNavigationService navigationService)
+        public void Initialize(ILoginManager loginManager, IMvxNavigationService navigationService)
         {
             Ensure.Argument.IsNotNull(loginManager, nameof(loginManager));
             Ensure.Argument.IsNotNull(navigationService, nameof(navigationService));
 
-            appStart = new AppStart(loginManager, navigationService);
-        }
-
-        public override void Initialize()
-        {
             Mvx.RegisterSingleton<IPasswordManagerService>(new StubPasswordManagerService());
 
-            RegisterAppStart(appStart);
+            RegisterAppStart(new AppStart(loginManager, navigationService));
         }
     }
 
@@ -44,17 +42,17 @@ namespace Toggl.Foundation.MvvmCross
 
         public void Start(object hint = null)
         {
+            Mvx.RegisterSingleton(loginManager);
+
             var dataSource = loginManager.GetDataSourceIfLoggedIn();
             if (dataSource == null)
             {
-                Mvx.RegisterSingleton(loginManager);
                 navigationService.Navigate<OnboardingViewModel>();
+                return;
             }
-            else
-            {
-                Mvx.RegisterSingleton(dataSource);
-                navigationService.Navigate<MainViewModel>();
-            }
+
+            Mvx.RegisterSingleton(dataSource);
+            navigationService.Navigate<MainViewModel>();
         }
     }
 }

@@ -45,7 +45,6 @@ namespace Toggl.Foundation.Tests.Generators
             var currentYear = DateTime.UtcNow.Year;
             var yearGenerator = Gen.Choose(currentYear - 1, currentYear);
             var monthGenerator = Gen.Choose(1, 12);
-            var durationGenerator = Arb.Default.TimeSpan().Generator;
 
             return Arb.Default
                 .Array<DateTimeOffset>()
@@ -56,11 +55,10 @@ namespace Toggl.Foundation.Tests.Generators
                     var viewmodel = new TimelineViewModel(dataSource);
 
                     var year = yearGenerator.Sample(0, 1).First();
-                    var duration = durationGenerator.Sample(0, 1).First();
 
                     var observable = dateTimes
                         .Select(newDateWithGenerator(monthGenerator, year))
-                        .Select(d => TimeEntry.Builder.Create(-1).SetStart(d).SetStop(d.Add(duration)).SetDescription("").Build())
+                        .Select(d => TimeEntry.Builder.Create(-1).SetStart(d).SetStop(d.AddHours(2)).SetDescription("").Build())
                         .Apply(Observable.Return);
 
                     dataSource.TimeEntries.GetAll().Returns(observable);

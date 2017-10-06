@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1" customClass="TimeEntryCardView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBU-Om-DuY">
+                    <rect key="frame" x="0.0" y="8" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="2iK-vq-LtZ"/>
+                        <constraint firstAttribute="height" constant="40" id="7kQ-cd-AzQ"/>
+                    </constraints>
+                    <state key="normal" image="icArrowUp"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Landing page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MI1-od-ML8">
+                    <rect key="frame" x="121.5" y="31" width="77" height="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtz-e5-Qgy">
+                    <rect key="frame" x="264" y="0.0" width="56" height="56"/>
+                    <accessibility key="accessibilityConfiguration" label="MainStopTimeEntry"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="QPe-6Q-GiG"/>
+                        <constraint firstAttribute="width" constant="56" id="iwD-ne-yEd"/>
+                    </constraints>
+                    <state key="normal" image="stopIcon"/>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:15:25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVm-Cy-OYM">
+                    <rect key="frame" x="138" y="12" width="44" height="15"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="MI1-od-ML8" firstAttribute="top" secondItem="fVm-Cy-OYM" secondAttribute="bottom" constant="4" id="3yV-7b-tqt"/>
+                <constraint firstItem="dtz-e5-Qgy" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="5i5-lq-e9V"/>
+                <constraint firstItem="fVm-Cy-OYM" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="6JN-du-fFw"/>
+                <constraint firstItem="WBU-Om-DuY" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" id="SUN-ua-DhX"/>
+                <constraint firstAttribute="trailing" secondItem="dtz-e5-Qgy" secondAttribute="trailing" id="Zql-fP-zeO"/>
+                <constraint firstItem="WBU-Om-DuY" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="b64-HX-HQ0"/>
+                <constraint firstItem="MI1-od-ML8" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="pK4-33-kPk"/>
+                <constraint firstItem="fVm-Cy-OYM" firstAttribute="top" secondItem="1" secondAttribute="top" constant="12" id="vL3-ob-Zdi"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="28.5" y="219.5"/>
+            <connections>
+                <outlet property="ArrowUpButton" destination="WBU-Om-DuY" id="name-outlet-WBU-Om-DuY"/>
+                <outlet property="StopButton" destination="dtz-e5-Qgy" id="name-outlet-dtz-e5-Qgy"/>
+                <outlet property="TimerLabel" destination="fVm-Cy-OYM" id="name-outlet-fVm-Cy-OYM"/>
+                <outlet property="DescriptionLabel" destination="MI1-od-ML8" id="name-outlet-MI1-od-ML8"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="icArrowUp" width="10" height="6"/>
+        <image name="stopIcon" width="34" height="34"/>
+        <image name="icBillable" width="8" height="16"/>
+        <image name="icClose" width="10" height="10"/>
+        <image name="icContinue" width="10" height="11"/>
+        <image name="icDatetime" width="14" height="14"/>
+        <image name="icDone" width="16" height="12"/>
+        <image name="icDownS" width="8" height="5"/>
+        <image name="icProjects" width="16" height="12"/>
+        <image name="icRefresh" width="20" height="14"/>
+        <image name="icReports" width="16" height="18"/>
+        <image name="icSettings" width="16" height="16"/>
+        <image name="icSyncerror" width="16" height="16"/>
+        <image name="icTags" width="14" height="13"/>
+        <image name="icUpS" width="8" height="5"/>
+        <image name="playIcon" width="50" height="50"/>
+        <image name="togglLogoWhite" width="111" height="35"/>
+        <image name="notebook" width="95" height="85"/>
+        <image name="togglCronometer" width="126" height="140"/>
+        <image name="icOnePassword" width="15" height="15"/>
+        <image name="icPassword" width="15" height="10"/>
+        <image name="togglLogo" width="63" height="19"/>
+        <image name="line" width="2" height="14"/>
+        <image name="icLoader" width="24" height="24"/>
+        <image name="icAdd" width="10" height="10"/>
+        <image name="icProjectDot" width="6" height="6"/>
+        <image name="icIllustrationTimer" width="89" height="90"/>
+        <image name="icIllustrationPaws" width="112" height="41"/>
+        <image name="duration" width="13" height="16"/>
+        <image name="icIllustrationSpider" width="60" height="205"/>
+        <image name="icDoneSmall" width="12" height="9"/>
+        <image name="icSearch" width="13" height="12"/>
+        <image name="icCheckBoxChecked" width="14" height="14"/>
+        <image name="icCheckBoxUnchecked" width="14" height="14"/>
+        <image name="icUnsynced" width="16" height="14"/>
+    </resources>
+</document>

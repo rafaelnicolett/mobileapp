@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ using Toggl.Foundation.DataSources;
 using Toggl.Foundation.Sync;
 using Toggl.Multivac;
 using Toggl.Multivac.Extensions;
-using Toggl.Multivac.Models;
+using Toggl.PrimeRadiant.Models;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {
@@ -23,9 +22,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         private readonly ITogglDataSource dataSource;
         private readonly IMvxNavigationService navigationService;
 
-        public TimeSpan CurrentTimeEntryElapsedTime { get; private set; } = TimeSpan.Zero;
-
-        public ITimeEntry CurrentlyRunningTimeEntry { get; private set; }
+        public CurrentlyRunningTimeEntryViewModel CurrentlyRunningTimeEntry { get; private set; }
 
         public bool IsSyncing { get; private set; }
 
@@ -62,14 +59,9 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         {
             await base.Initialize();
 
-            var tickDisposable = timeService
-                .CurrentDateTimeObservable
-                .Where(_ => CurrentlyRunningTimeEntry != null)
-                .Subscribe(currentTime => CurrentTimeEntryElapsedTime = currentTime - CurrentlyRunningTimeEntry.Start);
-
             var currentlyRunningTimeEntryDisposable = dataSource.TimeEntries
                 .CurrentlyRunningTimeEntry
-                .Subscribe(te => CurrentlyRunningTimeEntry = te);
+                .Subscribe(onRunningTimeEntryChanged);
 
             var syncManagerDisposable = 
                 dataSource.SyncManager.StateObservable
@@ -79,7 +71,6 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
                 dataSource.TimeEntries.IsEmpty
                     .Subscribe(isEmpty => SpiderIsVisible = !isWelcome && isEmpty);
 
-            disposeBag.Add(tickDisposable);
             disposeBag.Add(spiderDisposable);
             disposeBag.Add(syncManagerDisposable);
             disposeBag.Add(currentlyRunningTimeEntryDisposable);
@@ -106,10 +97,14 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         private async Task stopTimeEntry()
         {
             await dataSource.TimeEntries.Stop(timeService.CurrentDateTime);
-            CurrentTimeEntryElapsedTime = TimeSpan.Zero;
         }
 
         private Task editTimeEntry()
             => navigationService.Navigate<EditTimeEntryViewModel, long>(CurrentlyRunningTimeEntry.Id);
+
+        private void onRunningTimeEntryChanged(IDatabaseTimeEntry timeEntry)
+        {
+            CurrentlyRunningTimeEntry = timeEntry == null ? null : new CurrentlyRunningTimeEntryViewModel(timeEntry, timeService);
+        }
     }
 }

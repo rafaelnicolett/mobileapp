@@ -16,7 +16,7 @@ namespace Toggl.Daneel.ViewControllers
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIView CurrentTimeEntryCard { get; set; }
+        Views.TimeEntryCardView CurrentTimeEntryCard { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]

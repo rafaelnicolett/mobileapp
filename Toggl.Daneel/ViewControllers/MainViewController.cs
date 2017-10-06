@@ -1,18 +1,15 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.iOS;
 using MvvmCross.iOS.Views;
 using MvvmCross.iOS.Views.Presenters.Attributes;
-using MvvmCross.Platform.WeakSubscription;
 using MvvmCross.Plugins.Color;
 using MvvmCross.Plugins.Color.iOS;
 using MvvmCross.Plugins.Visibility;
 using Toggl.Daneel.Extensions;
 using Toggl.Daneel.Views;
-using Toggl.Foundation;
 using Toggl.Foundation.MvvmCross.Converters;
 using Toggl.Foundation.MvvmCross.Helper;
 using Toggl.Foundation.MvvmCross.ViewModels;
@@ -42,14 +39,12 @@ namespace Toggl.Daneel.ViewControllers
 
             var colorConverter = new MvxNativeColorValueConverter();
             var visibilityConverter = new MvxVisibilityValueConverter();
-            var timeSpanConverter = new TimeSpanToDurationValueConverter();
             var invertedVisibilityConverter = new MvxInvertedVisibilityValueConverter();
 
             var bindingSet = this.CreateBindingSet<MainViewController, MainViewModel>();
 
             //Commands
             bindingSet.Bind(settingsButton).To(vm => vm.OpenSettingsCommand);
-            bindingSet.Bind(StopTimeEntryButton).To(vm => vm.StopTimeEntryCommand);
             bindingSet.Bind(StartTimeEntryButton).To(vm => vm.StartTimeEntryCommand);
             bindingSet.Bind(EditTimeEntryButton).To(vm => vm.EditTimeEntryCommand);
             bindingSet.Bind(MainPagedScrollView)
@@ -61,16 +56,6 @@ namespace Toggl.Daneel.ViewControllers
                       .To(vm => vm.EditTimeEntryCommand);
 
             //Visibility
-            bindingSet.Bind(CurrentTimeEntryCard)
-                      .For(v => v.BindVisibility())
-                      .To(vm => vm.CurrentlyRunningTimeEntry)
-                      .WithConversion(visibilityConverter);
-
-            bindingSet.Bind(StartTimeEntryButton)
-                      .For(v => v.BindVisibility())
-                      .To(vm => vm.CurrentlyRunningTimeEntry)
-                      .WithConversion(invertedVisibilityConverter);
-
             bindingSet.Bind(SpiderBroImageView)
                       .For(v => v.BindVisibility())
                       .To(vm => vm.SpiderIsVisible)
@@ -85,12 +70,15 @@ namespace Toggl.Daneel.ViewControllers
                       .For(v => v.IsSyncing)
                       .To(vm => vm.IsSyncing);
 
-            //Text
-            bindingSet.Bind(CurrentTimeEntryDescriptionLabel).To(vm => vm.CurrentlyRunningTimeEntry.Description);
-            bindingSet.Bind(CurrentTimeEntryElapsedTimeLabel)
-                      .To(vm => vm.CurrentTimeEntryElapsedTime)
-                      .WithConversion(timeSpanConverter);
-            
+            //Card
+            bindingSet.Bind(CurrentTimeEntryCard)
+                      .For(v => v.StopCommand)
+                      .To(vm => vm.StopTimeEntryCommand);
+
+            bindingSet.Bind(CurrentTimeEntryCard)
+                      .For(v => v.CurrentlyRunningTimeEntry)
+                      .To(vm => vm.CurrentlyRunningTimeEntry);
+
             bindingSet.Apply();
         }
 
@@ -161,7 +149,7 @@ namespace Toggl.Daneel.ViewControllers
         {
             SpiderBroImageView.Transform = CGAffineTransform.MakeRotation(-animationAngle);
 
-            UIView.Animate(Animation.Timings.SpiderBro, 0, UIViewAnimationOptions.Autoreverse | UIViewAnimationOptions.Repeat, 
+            UIView.Animate(Animation.Timings.SpiderBro, 0, UIViewAnimationOptions.Autoreverse | UIViewAnimationOptions.Repeat,
                 () => SpiderBroImageView.Transform = CGAffineTransform.MakeRotation(animationAngle), animateSpider);
         }
     }

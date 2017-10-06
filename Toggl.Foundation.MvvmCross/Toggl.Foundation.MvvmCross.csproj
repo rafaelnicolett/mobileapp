@@ -65,6 +65,7 @@
     <Compile Include="ViewModels\SelectableTagViewModel.cs" />
     <Compile Include="Helper\AutocompleteExtensions.cs" />
     <Compile Include="Converters\CollectionToStringValueConverter.cs" />
+    <Compile Include="ViewModels\CurrentlyRunningTimeEntryViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Reactive.Interfaces">

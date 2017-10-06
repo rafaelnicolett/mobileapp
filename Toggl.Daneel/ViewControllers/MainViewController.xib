@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
@@ -12,13 +12,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController">
             <connections>
                 <outlet property="CurrentTimeEntryCard" destination="vou-B4-go4" id="name-outlet-vou-B4-go4"/>
-                <outlet property="CurrentTimeEntryDescriptionLabel" destination="edS-73-7O7" id="name-outlet-edS-73-7O7"/>
-                <outlet property="CurrentTimeEntryElapsedTimeLabel" destination="0J7-Pj-geT" id="name-outlet-0J7-Pj-geT"/>
-                <outlet property="EditTimeEntryButton" destination="qpc-Yb-DcP" id="name-outlet-qpc-Yb-DcP"/>
                 <outlet property="MainPagedScrollView" destination="fyC-Me-BcE" id="name-outlet-fyC-Me-BcE"/>
                 <outlet property="SpiderBroImageView" destination="mpU-UI-dLB" id="name-outlet-mpU-UI-dLB"/>
                 <outlet property="StartTimeEntryButton" destination="4Kk-Hz-RBS" id="name-outlet-4Kk-Hz-RBS"/>
-                <outlet property="StopTimeEntryButton" destination="Ddo-IW-xE3" id="name-outlet-Ddo-IW-xE3"/>
                 <outlet property="SuggestionsContainer" destination="5K9-cC-7E8" id="name-outlet-5K9-cC-7E8"/>
                 <outlet property="SyncIndicatorView" destination="rGt-Hu-Yo8" id="name-outlet-rGt-Hu-Yo8"/>
                 <outlet property="SyncStateLabel" destination="wzp-dn-kfL" id="name-outlet-wzp-dn-kfL"/>
@@ -30,19 +26,19 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="2">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyC-Me-BcE" customClass="MainScrollView">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyC-Me-BcE" customClass="MainScrollView" misplaced="YES">
                     <rect key="frame" x="0.0" y="70" width="375" height="597"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AoW-bW-7hX">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AoW-bW-7hX" misplaced="YES">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="1194"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lb6-Oz-TYx">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lb6-Oz-TYx" misplaced="YES">
                                     <rect key="frame" x="0.0" y="-52" width="375" height="52"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzp-dn-kfL">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzp-dn-kfL" misplaced="YES">
                                             <rect key="frame" x="172" y="32" width="32" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="xNy-2r-7Hg"/>
@@ -51,7 +47,7 @@
                                             <color key="textColor" red="0.98039215690000003" green="0.98431372549999996" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ActivityIndicatorView" translatesAutoresizingMaskIntoConstraints="NO" id="rGt-Hu-Yo8" customClass="ActivityIndicatorView">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ActivityIndicatorView" translatesAutoresizingMaskIntoConstraints="NO" id="rGt-Hu-Yo8" customClass="ActivityIndicatorView" misplaced="YES">
                                             <rect key="frame" x="210" y="32" width="14" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="14" id="UY1-GQ-gxN"/>
@@ -68,24 +64,24 @@
                                         <constraint firstItem="wzp-dn-kfL" firstAttribute="centerX" secondItem="lb6-Oz-TYx" secondAttribute="centerX" id="igS-0R-kyq"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EzU-Pd-V8e">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EzU-Pd-V8e" misplaced="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-Dk-cfk">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tGg-Dk-cfk" misplaced="YES">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
                                             <color key="backgroundColor" red="0.64313725490196072" green="0.67843137254901964" blue="0.69019607843137254" alpha="0.34999999999999998" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="9BH-86-07X"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxU-Yy-g7c">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxU-Yy-g7c" misplaced="YES">
                                             <rect key="frame" x="0.0" y="43" width="375" height="1"/>
                                             <color key="backgroundColor" red="0.90980392156862744" green="0.90980392156862744" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="N8t-WU-2KK"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5K9-cC-7E8">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5K9-cC-7E8" misplaced="YES">
                                             <rect key="frame" x="0.0" y="44" width="375" height="477"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <userDefinedRuntimeAttributes>
@@ -94,7 +90,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKL-ZP-Ff4">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKL-ZP-Ff4" misplaced="YES">
                                             <rect key="frame" x="142" y="545" width="91" height="27"/>
                                             <string key="text">SWIPE UP
 TO SEE THE LOG</string>
@@ -102,14 +98,14 @@ TO SEE THE LOG</string>
                                             <color key="textColor" red="0.70980392160000005" green="0.73725490199999999" blue="0.75294117650000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line" translatesAutoresizingMaskIntoConstraints="NO" id="LV7-Bw-hnV">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="line" translatesAutoresizingMaskIntoConstraints="NO" id="LV7-Bw-hnV" misplaced="YES">
                                             <rect key="frame" x="186" y="577" width="2" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="NOX-ND-0D8"/>
                                                 <constraint firstAttribute="width" constant="2" id="idT-K9-PUV"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icIllustrationSpider" translatesAutoresizingMaskIntoConstraints="NO" id="mpU-UI-dLB">
+                                        <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icIllustrationSpider" translatesAutoresizingMaskIntoConstraints="NO" id="mpU-UI-dLB" misplaced="YES">
                                             <rect key="frame" x="158" y="-70" width="60" height="205"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="OFT-Lr-yz0"/>
@@ -167,14 +163,14 @@ TO SEE THE LOG</string>
                         <constraint firstItem="AoW-bW-7hX" firstAttribute="top" secondItem="fyC-Me-BcE" secondAttribute="top" id="xdV-Mb-C6B"/>
                     </constraints>
                 </scrollView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHr-Hf-Kio">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MHr-Hf-Kio" misplaced="YES">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                     <color key="backgroundColor" red="0.98039215686274506" green="0.98431372549019602" blue="0.9882352941176471" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="70" id="cwy-a5-McG"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Kk-Hz-RBS">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Kk-Hz-RBS" misplaced="YES">
                     <rect key="frame" x="309" y="601" width="50" height="50"/>
                     <accessibility key="accessibilityConfiguration" label="MainStartTimeEntry"/>
                     <constraints>
@@ -183,50 +179,11 @@ TO SEE THE LOG</string>
                     </constraints>
                     <state key="normal" image="playIcon"/>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vou-B4-go4">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vou-B4-go4" customClass="TimeEntryCardView" misplaced="YES">
                     <rect key="frame" x="0.0" y="611" width="375" height="64"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:15:25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0J7-Pj-geT">
-                            <rect key="frame" x="166" y="12" width="44" height="15"/>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpc-Yb-DcP">
-                            <rect key="frame" x="0.0" y="8" width="40" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="40" id="dof-2X-akV"/>
-                                <constraint firstAttribute="height" constant="40" id="kWn-aX-XNJ"/>
-                            </constraints>
-                            <state key="normal" image="icArrowUp"/>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ddo-IW-xE3">
-                            <rect key="frame" x="319" y="0.0" width="56" height="56"/>
-                            <accessibility key="accessibilityConfiguration" label="MainStopTimeEntry"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="56" id="cJZ-zk-6qM"/>
-                                <constraint firstAttribute="height" constant="56" id="urN-jP-06M"/>
-                            </constraints>
-                            <state key="normal" image="stopIcon"/>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Landing page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edS-73-7O7">
-                            <rect key="frame" x="149" y="30" width="77" height="14"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="qpc-Yb-DcP" firstAttribute="centerY" secondItem="vou-B4-go4" secondAttribute="centerY" constant="-4" id="3oY-17-nBu"/>
-                        <constraint firstItem="0J7-Pj-geT" firstAttribute="top" secondItem="vou-B4-go4" secondAttribute="top" constant="12" id="E1E-1G-lz6"/>
-                        <constraint firstAttribute="trailing" secondItem="Ddo-IW-xE3" secondAttribute="trailing" id="I2f-56-ZfV"/>
-                        <constraint firstItem="qpc-Yb-DcP" firstAttribute="leading" secondItem="vou-B4-go4" secondAttribute="leading" id="JQx-SZ-5dm"/>
-                        <constraint firstItem="Ddo-IW-xE3" firstAttribute="centerY" secondItem="vou-B4-go4" secondAttribute="centerY" constant="-4" id="bLM-7i-XMM"/>
-                        <constraint firstItem="edS-73-7O7" firstAttribute="centerX" secondItem="vou-B4-go4" secondAttribute="centerX" id="bhV-fd-XD9"/>
-                        <constraint firstAttribute="bottom" secondItem="edS-73-7O7" secondAttribute="bottom" constant="20" id="dDG-70-dpU"/>
                         <constraint firstAttribute="height" constant="64" id="frl-NQ-7dP"/>
-                        <constraint firstItem="0J7-Pj-geT" firstAttribute="centerX" secondItem="vou-B4-go4" secondAttribute="centerX" id="oCw-6x-no1"/>
                     </constraints>
                 </view>
             </subviews>
@@ -249,11 +206,40 @@ TO SEE THE LOG</string>
         </view>
     </objects>
     <resources>
-        <image name="ActivityIndicatorView" width="16" height="16"/>
-        <image name="icArrowUp" width="10" height="6"/>
         <image name="icIllustrationSpider" width="60" height="205"/>
         <image name="line" width="2" height="14"/>
         <image name="playIcon" width="50" height="50"/>
+        <image name="icArrowUp" width="10" height="6"/>
+        <image name="icBillable" width="8" height="16"/>
+        <image name="icClose" width="10" height="10"/>
+        <image name="icContinue" width="10" height="11"/>
+        <image name="icDatetime" width="14" height="14"/>
+        <image name="icDone" width="16" height="12"/>
+        <image name="icDownS" width="8" height="5"/>
+        <image name="icProjects" width="16" height="12"/>
+        <image name="icRefresh" width="20" height="14"/>
+        <image name="icReports" width="16" height="18"/>
+        <image name="icSettings" width="16" height="16"/>
+        <image name="icSyncerror" width="16" height="16"/>
+        <image name="icTags" width="14" height="13"/>
+        <image name="icUpS" width="8" height="5"/>
         <image name="stopIcon" width="34" height="34"/>
+        <image name="togglLogoWhite" width="111" height="35"/>
+        <image name="notebook" width="95" height="85"/>
+        <image name="togglCronometer" width="126" height="140"/>
+        <image name="icOnePassword" width="15" height="15"/>
+        <image name="icPassword" width="15" height="10"/>
+        <image name="togglLogo" width="63" height="19"/>
+        <image name="icLoader" width="24" height="24"/>
+        <image name="icAdd" width="10" height="10"/>
+        <image name="icProjectDot" width="6" height="6"/>
+        <image name="icIllustrationTimer" width="89" height="90"/>
+        <image name="icIllustrationPaws" width="112" height="41"/>
+        <image name="duration" width="13" height="16"/>
+        <image name="icDoneSmall" width="12" height="9"/>
+        <image name="icSearch" width="13" height="12"/>
+        <image name="icCheckBoxChecked" width="14" height="14"/>
+        <image name="icCheckBoxUnchecked" width="14" height="14"/>
+        <image name="icUnsynced" width="16" height="14"/>
     </resources>
 </document>

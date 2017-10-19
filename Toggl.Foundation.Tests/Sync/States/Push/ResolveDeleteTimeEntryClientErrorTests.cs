@@ -41,6 +41,18 @@ namespace Toggl.Foundation.Tests.Sync.States
             parameter.ShouldBeEquivalentTo(entity, options => options.IncludingProperties());
         }
 
+        [Theory]
+        [MemberData(nameof(reasonsToEnterRetryLoop))]
+        public void ReturnTheEnterRetryLoopTransition(ClientErrorException exception)
+        {
+            var entity = TimeEntry.Dirty(new Ultrawave.Models.TimeEntry { Id = 123 });
+            var state = new ResolveDeleteTimeEntryClientErrorState();
+
+            var transition = state.Start((exception, entity)).Wait();
+
+            transition.Result.Should().Be(state.EnterRetryLoop);
+        }
+
         private static object[] notIgnoredClientExcetions()
             => new object[0];
 
@@ -54,9 +66,13 @@ namespace Toggl.Foundation.Tests.Sync.States
                 new object[] { new NotFoundException() },
                 new object[] { new ApiDeprecatedException() },
                 new object[] { new RequestEntityTooLargeException() },
-                new object[] { new ClientDeprecatedException() },
-                new object[] { new TooManyRequestsException() }
+                new object[] { new ClientDeprecatedException() }
             };
 
+        private static object[] reasonsToEnterRetryLoop()
+            => new[]
+            {
+                new object[] { new TooManyRequestsException() }
+            };
     }
 }

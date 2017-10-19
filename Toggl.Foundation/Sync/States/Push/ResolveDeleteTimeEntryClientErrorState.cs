@@ -7,5 +7,8 @@ namespace Toggl.Foundation.Sync.States
     {
         protected override bool IgnoreTheError(ClientErrorException error)
             => true;
+
+        protected override bool ShouldEnterRetryLoop(ClientErrorException error)
+            => error is TooManyRequestsException;
     }
 }

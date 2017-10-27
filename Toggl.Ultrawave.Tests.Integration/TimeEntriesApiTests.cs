@@ -9,6 +9,7 @@ using FluentAssertions;
 using Toggl.Multivac.Models;
 using Toggl.Ultrawave.Exceptions;
 using Toggl.Ultrawave.Tests.Integration.BaseTests;
+using Toggl.Ultrawave.Tests.Integration.Helper;
 using Xunit;
 using TimeEntry = Toggl.Ultrawave.Models.TimeEntry;
 
@@ -424,6 +425,52 @@ namespace Toggl.Ultrawave.Tests.Integration
 
             protected override IObservable<Unit> Delete(ITogglApi togglApi, ITimeEntry timeEntry)
                 => togglApi.TimeEntries.Delete(timeEntry);
+        }
+
+        public sealed class PaidFeaturesTests : EndpointTestBase
+        {
+            private readonly SubscriptionPlanActivator plans = new SubscriptionPlanActivator();
+            
+            private IObservable<IWorkspaceFeatureCollection> fakeFeatures(long workspaceId)
+                => Observable.Return(new Ultrawave.Models.WorkspaceFeatureCollection
+                {
+                    WorkspaceId = workspaceId,
+                    Features = new[]
+                    {
+                        new Ultrawave.Models.WorkspaceFeature { FeatureId = Multivac.WorkspaceFeatureId.Pro, Enabled = true }
+                    }
+                });
+
+            [Fact]
+            public async Task FailsWhenTryingToPushTimeEntryWithBillableFlagToAFreeWorkspace()
+            {
+                var (togglApi, user) = await SetupTestUser(fakeFeatures);
+                var timeEntry = createTimeEntry(user);
+                timeEntry.Billable = true;
+
+                Action creatingTimeEntry = () => togglApi.TimeEntries.Create(timeEntry).Wait();
+
+                creatingTimeEntry.ShouldThrow<ForbiddenException>();
+            }
+
+            [Fact]
+            public async Task FailsWhenTryingToPushTimeEntryWithTaskIdToAFreeWorkspace()
+            {
+                var (togglApi, user) = await SetupTestUser(fakeFeatures);
+                await plans.EnsureWorkspaceIsOnPlan(user, user.DefaultWorkspaceId, PricingPlans.StarterMonthly);
+                await Task.Delay(1000); // increase the probability of switching the workspace plan
+                var timeEntry = createTimeEntry(user);
+                var project = await togglApi.Projects.Create(new Ultrawave.Models.Project { WorkspaceId = user.DefaultWorkspaceId, Name = Guid.NewGuid().ToString(), Active = true });
+                var task = await togglApi.Tasks.Create(new Ultrawave.Models.Task { WorkspaceId = user.DefaultWorkspaceId, ProjectId = project.Id, UserId = user.Id, Name = Guid.NewGuid().ToString() });
+                timeEntry.ProjectId = project.Id;
+                timeEntry.TaskId = task.Id;
+                await plans.EnsureDefaultWorkspaceIsOnPlan(togglApi, PricingPlans.Free);
+                await Task.Delay(1000); // increase the probability of switching the workspace plan
+
+                Action creatingTimeEntry = () => togglApi.TimeEntries.Create(timeEntry).Wait();
+
+                creatingTimeEntry.ShouldThrow<ForbiddenException>();
+            }
         }
 
         private static TimeEntry createTimeEntry(IUser user) => new TimeEntry

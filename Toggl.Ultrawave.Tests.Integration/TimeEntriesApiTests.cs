@@ -430,21 +430,25 @@ namespace Toggl.Ultrawave.Tests.Integration
         public sealed class PaidFeaturesTests : EndpointTestBase
         {
             private readonly SubscriptionPlanActivator plans = new SubscriptionPlanActivator();
-            
-            private IObservable<IWorkspaceFeatureCollection> fakeFeatures(long workspaceId)
+
+            private IObservable<IWorkspaceFeatureCollection> proFeatures(long workspaceId)
                 => Observable.Return(new Ultrawave.Models.WorkspaceFeatureCollection
                 {
                     WorkspaceId = workspaceId,
                     Features = new[]
                     {
-                        new Ultrawave.Models.WorkspaceFeature { FeatureId = Multivac.WorkspaceFeatureId.Pro, Enabled = true }
+                        new Ultrawave.Models.WorkspaceFeature
+                        {
+                            FeatureId = Multivac.WorkspaceFeatureId.Pro,
+                            Enabled = true
+                        }
                     }
                 });
 
             [Fact]
             public async Task FailsWhenTryingToPushTimeEntryWithBillableFlagToAFreeWorkspace()
             {
-                var (togglApi, user) = await SetupTestUser(fakeFeatures);
+                var (togglApi, user) = await SetupTestUser(proFeatures);
                 var timeEntry = createTimeEntry(user);
                 timeEntry.Billable = true;
 
@@ -456,9 +460,9 @@ namespace Toggl.Ultrawave.Tests.Integration
             [Fact]
             public async Task FailsWhenTryingToPushTimeEntryWithTaskIdToAFreeWorkspace()
             {
-                var (togglApi, user) = await SetupTestUser(fakeFeatures);
                 await plans.EnsureWorkspaceIsOnPlan(user, user.DefaultWorkspaceId, PricingPlans.StarterMonthly);
                 await Task.Delay(1000); // increase the probability of switching the workspace plan
+                var (togglApi, user) = await SetupTestUser(proFeatures);
                 var timeEntry = createTimeEntry(user);
                 var project = await togglApi.Projects.Create(new Ultrawave.Models.Project { WorkspaceId = user.DefaultWorkspaceId, Name = Guid.NewGuid().ToString(), Active = true });
                 var task = await togglApi.Tasks.Create(new Ultrawave.Models.Task { WorkspaceId = user.DefaultWorkspaceId, ProjectId = project.Id, UserId = user.Id, Name = Guid.NewGuid().ToString() });

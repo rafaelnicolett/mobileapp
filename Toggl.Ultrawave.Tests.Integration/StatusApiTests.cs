@@ -16,7 +16,7 @@ namespace Toggl.Ultrawave.Tests.Integration
             [Fact, LogTestInfo]
             public async Task ShouldSucceedWithoutCredentials()
             {
-                var togglClient = TogglApiWith(Credentials.None);
+                var togglClient = TogglApiWith(Credentials.None, NoFeatures);
                 Exception caughtException = null;
 
                 await togglClient.Status.IsAvailable().Catch((Exception e) =>

@@ -21,7 +21,7 @@ namespace Toggl.Ultrawave.Tests.Integration
             {
                 var (email, password) = await User.CreateEmailPassword();
                 var credentials = Credentials.WithPassword(email, password);
-                var api = TogglApiWith(credentials);
+                var api = TogglApiWith(credentials, NoFeatures);
 
                 var user = await api.User.Get();
                 user.Email.Should().Be(email.ToString());

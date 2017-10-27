@@ -1,6 +1,8 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using ModernHttpClient;
 using Toggl.Multivac;
+using Toggl.Multivac.Models;
 using Toggl.Ultrawave.ApiClients;
 using Toggl.Ultrawave.Network;
 using Toggl.Ultrawave.Serialization;
@@ -10,7 +12,7 @@ namespace Toggl.Ultrawave
 {
     public sealed class TogglApi : ITogglApi
     {
-        public TogglApi(ApiConfiguration configuration, HttpClientHandler handler = null)
+        public TogglApi(ApiConfiguration configuration, Func<long, IObservable<IWorkspaceFeatureCollection>> getWorkspaceFeatures, HttpClientHandler handler = null)
         {
             Ensure.Argument.IsNotNull(configuration, nameof(configuration));
 
@@ -30,7 +32,7 @@ namespace Toggl.Ultrawave
             Clients = new ClientsApi(endpoints.Clients, apiClient, serializer, credentials);
             Projects = new ProjectsApi(endpoints.Projects, apiClient, serializer, credentials);
             Workspaces = new WorkspacesApi(endpoints.Workspaces, apiClient, serializer, credentials);
-            TimeEntries = new TimeEntriesApi(endpoints.TimeEntries, apiClient, serializer, credentials, userAgent);
+            TimeEntries = new TimeEntriesApi(endpoints.TimeEntries, apiClient, serializer, credentials, userAgent, getWorkspaceFeatures);
             WorkspaceFeatures = new WorkspaceFeaturesApi(endpoints.WorkspaceFeatures, apiClient, serializer, credentials);
         }
 

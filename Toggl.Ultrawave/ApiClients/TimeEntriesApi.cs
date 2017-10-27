@@ -13,13 +13,15 @@ namespace Toggl.Ultrawave.ApiClients
     {
         private readonly UserAgent userAgent;
         private readonly TimeEntryEndpoints endPoints;
+        private readonly Func<long, IObservable<IWorkspaceFeatureCollection>> getWorkspaceFeatures;
 
         public TimeEntriesApi(TimeEntryEndpoints endPoints, IApiClient apiClient, IJsonSerializer serializer, 
-            Credentials credentials, UserAgent userAgent)
+            Credentials credentials, UserAgent userAgent, Func<long, IObservable<IWorkspaceFeatureCollection>> getWorkspaceFeatures)
             : base(apiClient, serializer, credentials)
         {
             this.userAgent = userAgent;
             this.endPoints = endPoints;
+            this.getWorkspaceFeatures = getWorkspaceFeatures;
         }
 
         public IObservable<List<ITimeEntry>> GetAll()
@@ -42,12 +44,14 @@ namespace Toggl.Ultrawave.ApiClients
         private IObservable<ITimeEntry> pushTimeEntry(Endpoint endPoint, ITimeEntry timeEntry, SerializationReason reason)
         {
             var timeEntryCopy = timeEntry as TimeEntry ?? new TimeEntry(timeEntry);
+            IWorkspaceFeatureCollection features = null;
             if (reason == SerializationReason.Post)
             {
                 timeEntryCopy.CreatedWith = userAgent.ToString();
+                features = getWorkspaceFeatures(timeEntry.WorkspaceId).Wait();
             }
 
-            var observable = CreateObservable(endPoint, AuthHeader, timeEntryCopy, reason);
+            var observable = CreateObservable(endPoint, AuthHeader, timeEntryCopy, reason, features);
             return observable;
         }
     }

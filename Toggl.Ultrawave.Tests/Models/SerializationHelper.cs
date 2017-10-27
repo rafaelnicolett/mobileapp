@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Toggl.Multivac.Models;
 using Toggl.Ultrawave.Serialization;
 
 namespace Toggl.Ultrawave.Tests
@@ -15,9 +16,9 @@ namespace Toggl.Ultrawave.Tests
             actual.ShouldBeEquivalentTo(validObject);
         }
 
-        internal static void CanBeSerialized<T>(string validJson, T validObject, SerializationReason reason = SerializationReason.Default)
+        internal static void CanBeSerialized<T>(string validJson, T validObject, SerializationReason reason = SerializationReason.Default, IWorkspaceFeatureCollection features = null)
         {
-            var actualJson = serializer.Serialize(validObject, reason);
+            var actualJson = serializer.Serialize(validObject, reason, features);
 
             actualJson.Should().Be(validJson);
         }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Toggl.Ultrawave.Serialization;
+using Toggl.Ultrawave.Serialization.Attributes;
+using static Toggl.Multivac.WorkspaceFeatureId;
 
 namespace Toggl.Ultrawave.Models
 {
@@ -16,8 +18,10 @@ namespace Toggl.Ultrawave.Models
 
         public long? ProjectId { get; set; }
 
+        [RequiresFeature(Pro)]
         public long? TaskId { get; set; }
 
+        [RequiresFeature(Pro)]
         public bool Billable { get; set; }
 
         public DateTimeOffset Start { get; set; }

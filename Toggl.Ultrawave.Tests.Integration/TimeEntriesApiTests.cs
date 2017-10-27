@@ -452,9 +452,9 @@ namespace Toggl.Ultrawave.Tests.Integration
                 var timeEntry = createTimeEntry(user);
                 timeEntry.Billable = true;
 
-                Action creatingTimeEntry = () => togglApi.TimeEntries.Create(timeEntry).Wait();
+                var postedTimeEntry = await togglApi.TimeEntries.Create(timeEntry);
 
-                creatingTimeEntry.ShouldThrow<ForbiddenException>();
+                postedTimeEntry.Billable.Should().BeFalse();
             }
 
             {

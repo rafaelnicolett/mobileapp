@@ -457,23 +457,11 @@ namespace Toggl.Ultrawave.Tests.Integration
                 creatingTimeEntry.ShouldThrow<ForbiddenException>();
             }
 
-            [Fact]
-            public async Task FailsWhenTryingToPushTimeEntryWithTaskIdToAFreeWorkspace()
             {
-                await plans.EnsureWorkspaceIsOnPlan(user, user.DefaultWorkspaceId, PricingPlans.StarterMonthly);
-                await Task.Delay(1000); // increase the probability of switching the workspace plan
                 var (togglApi, user) = await SetupTestUser(proFeatures);
                 var timeEntry = createTimeEntry(user);
-                var project = await togglApi.Projects.Create(new Ultrawave.Models.Project { WorkspaceId = user.DefaultWorkspaceId, Name = Guid.NewGuid().ToString(), Active = true });
-                var task = await togglApi.Tasks.Create(new Ultrawave.Models.Task { WorkspaceId = user.DefaultWorkspaceId, ProjectId = project.Id, UserId = user.Id, Name = Guid.NewGuid().ToString() });
-                timeEntry.ProjectId = project.Id;
-                timeEntry.TaskId = task.Id;
-                await plans.EnsureDefaultWorkspaceIsOnPlan(togglApi, PricingPlans.Free);
-                await Task.Delay(1000); // increase the probability of switching the workspace plan
 
-                Action creatingTimeEntry = () => togglApi.TimeEntries.Create(timeEntry).Wait();
 
-                creatingTimeEntry.ShouldThrow<ForbiddenException>();
             }
 
             [Theory]

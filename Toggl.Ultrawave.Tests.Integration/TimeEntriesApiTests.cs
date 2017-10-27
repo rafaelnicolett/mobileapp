@@ -457,11 +457,23 @@ namespace Toggl.Ultrawave.Tests.Integration
                 postedTimeEntry.Billable.Should().BeFalse();
             }
 
+            [Theory]
+            [InlineData(PricingPlans.StarterMonthly)]
+            [InlineData(PricingPlans.StarterAnnual)]
+            [InlineData(PricingPlans.PremiumMonthly)]
+            [InlineData(PricingPlans.PremiumAnnual)]
+            [InlineData(PricingPlans.EnterpriseMonthly)]
+            [InlineData(PricingPlans.EnterpriseAnnual)]
+            public async Task CreatesABillableTimeEntryWhenThePlanIsNotFree(PricingPlans plan)
             {
                 var (togglApi, user) = await SetupTestUser(proFeatures);
+                await plans.EnsureDefaultWorkspaceIsOnPlan(togglApi, plan);
                 var timeEntry = createTimeEntry(user);
+                timeEntry.Billable = true;
 
+                var posted = await togglApi.TimeEntries.Create(timeEntry);
 
+                posted.Billable.Should().BeTrue();
             }
 
             [Theory]

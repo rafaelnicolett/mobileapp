@@ -115,7 +115,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         private void safeInsertTimeEntry(IDatabaseTimeEntry timeEntry)
         {
             var indexDate = timeEntry.Start.LocalDateTime.Date;
-            var timeEntriesInDay =  new List<TimeEntryViewModel> { new TimeEntryViewModel(timeEntry) };
+            var timeEntriesInDay = new List<TimeEntryViewModel> { new TimeEntryViewModel(timeEntry) };
 
             var collection = TimeEntries.FirstOrDefault(x => x.Date == indexDate);
             if (collection != null)

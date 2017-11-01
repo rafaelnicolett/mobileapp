@@ -74,6 +74,8 @@
     <Compile Include="Parameters\SelectProjectParameter.cs" />
     <Compile Include="ViewModels\BrowserViewModel.cs" />
     <Compile Include="Parameters\BrowserParameters.cs" />
+    <Compile Include="TrackingNavigationService.cs" />
+    <Compile Include="Services\IAnalyticsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Reactive.Interfaces">

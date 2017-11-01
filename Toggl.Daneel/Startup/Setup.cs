@@ -53,7 +53,16 @@ namespace Toggl.Daneel
         protected override IMvxApplication CreateApp() => new App();
 
         protected override IMvxNavigationService InitializeNavigationService(IMvxViewModelLocatorCollection collection)
-            => navigationService = base.InitializeNavigationService(collection);
+        {
+            var analyticsService = new FirebaseAnalyticsService();
+
+            var loader = CreateViewModelLoader(collection);
+            Mvx.RegisterSingleton<IMvxViewModelLoader>(loader);
+
+            navigationService = new TrackingNavigationService(null, loader, analyticsService);
+            Mvx.RegisterSingleton<IMvxNavigationService>(navigationService);
+            return navigationService;
+        }
 
         protected override void InitializeApp(IMvxPluginManager pluginManager, IMvxApplication app)
         {

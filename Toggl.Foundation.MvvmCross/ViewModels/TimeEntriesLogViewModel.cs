@@ -108,7 +108,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             var timeEntry = tuple.Entity;
             safeRemoveTimeEntry(tuple.Id);
 
-            if (timeEntry == null || !isNotRunning(timeEntry) || timeEntry.IsDeleted) return;
+            if (timeEntry == null || timeEntry.IsRunning() || timeEntry.IsDeleted) return;
             safeInsertTimeEntry(timeEntry);
         }
 

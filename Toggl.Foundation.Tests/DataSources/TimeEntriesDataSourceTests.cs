@@ -472,7 +472,6 @@ namespace Toggl.Foundation.Tests.DataSources
                 => timeEntry.Id == DatabaseTimeEntry.Id
                 && timeEntry.UserId == DatabaseTimeEntry.UserId
                 && timeEntry.IsDeleted == DatabaseTimeEntry.IsDeleted
-                && timeEntry.CreatedWith == DatabaseTimeEntry.CreatedWith
                 && timeEntry.ServerDeletedAt == DatabaseTimeEntry.ServerDeletedAt;
 
             [Fact]
@@ -570,6 +569,24 @@ namespace Toggl.Foundation.Tests.DataSources
                 await TimeEntriesSource.Update(dto);
 
                 observer.Received().OnNext(Arg.Is<(long Id, IDatabaseTimeEntry)>(te => te.Id == dto.Id));
+            }
+
+            [Fact]
+            public async ThreadingTask UsesTheUpdatedEntityFromTheRepositoryAndNotTheArgumentToUpdateTheCurrentlyRunningTimeEntry()
+            {
+                var observable = Observable.Return(DatabaseTimeEntry);
+                Repository.GetById(Arg.Is(DatabaseTimeEntry.Id)).Returns(observable);
+                var updatedTimeEntry = Substitute.For<IDatabaseTimeEntry>();
+                updatedTimeEntry.Id.Returns(123);
+                Repository.Update(DatabaseTimeEntry.Id, Arg.Any<IDatabaseTimeEntry>()).Returns(Observable.Return(updatedTimeEntry));
+                var dto = new EditTimeEntryDto { Id = DatabaseTimeEntry.Id, Description = "New description", StartTime = DateTimeOffset.UtcNow, WorkspaceId = 71 };
+                var observer = Substitute.For<IObserver<(long, IDatabaseTimeEntry)>>();
+                TimeEntriesSource.TimeEntryUpdated.Subscribe(observer);
+
+                await TimeEntriesSource.Update(dto);
+
+                observer.Received().OnNext(Arg.Is<(long, IDatabaseTimeEntry Entity)>(te =>
+                    te.Entity.Id == updatedTimeEntry.Id));
             }
         }
     }

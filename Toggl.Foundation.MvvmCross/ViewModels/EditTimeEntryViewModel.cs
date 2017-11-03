@@ -20,6 +20,8 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
     [Preserve(AllMembers = true)]
     public sealed class EditTimeEntryViewModel : MvxViewModel<long>
     {
+        private const int maxTagLendth = 30;
+
         private readonly ITogglDataSource dataSource;
         private readonly IMvxNavigationService navigationService;
         private readonly ITimeService timeService;
@@ -133,7 +135,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             StartTime = timeEntry.Start;
             StopTime = timeEntry.IsRunning() ? (DateTimeOffset?)null : timeEntry.Start.AddSeconds(timeEntry.Duration.Value);
             Billable = timeEntry.Billable;
-            Tags = timeEntry.Tags?.Select(tag => tag.Name).ToList() ?? new List<string>();
+            Tags = timeEntry.Tags?.Select(tag => trimTag(tag.Name)).ToList() ?? new List<string>();
             Project = timeEntry.Project?.Name;
             ProjectColor = timeEntry.Project?.Color;
             Task = timeEntry.Task?.Name;
@@ -276,7 +278,8 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
         private void onTags(IEnumerable<IDatabaseTag> tags)
         {
             tags.Select(tag => tag.Name)
-                   .ForEach(Tags.Add);
+               .Select(trimTag)
+               .ForEach(Tags.Add);
             RaisePropertyChanged(nameof(Tags));
             RaisePropertyChanged(nameof(HasTags));
         }
@@ -297,6 +300,14 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             tagIds.Clear();
             RaisePropertyChanged(nameof(Tags));
             RaisePropertyChanged(nameof(HasTags));
+        }
+
+        private string trimTag(string tag)
+        {
+            if (tag.Length <= maxTagLendth)
+                return tag;
+
+            return $"{tag.Substring(0, maxTagLendth)}...";
         }
     }
 }

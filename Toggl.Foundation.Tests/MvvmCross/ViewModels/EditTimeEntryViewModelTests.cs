@@ -690,5 +690,52 @@ namespace Toggl.Foundation.Tests.MvvmCross.ViewModels
                 ViewModel.Tags.Should().HaveCount(0);
             }
         }
+
+        public sealed class TheTagsProperty : EditTimeEntryViewModelTest
+        {
+            [Theory]
+            [InlineData(31)]
+            [InlineData(50)]
+            public async Task CutsLongTagNames(int tagLength)
+            {
+                await prepareTest(tagLength);
+
+                ViewModel.Tags.Should()
+                    .OnlyContain(tag => tag.Length == 33 && tag.EndsWith("..."));
+            }
+
+            [Theory]
+            [InlineData(30)]
+            [InlineData(29)]
+            [InlineData(10)]
+            public async Task DoesNotCutShortTagNames(int tagLength)
+            {
+                await prepareTest(tagLength);
+
+                ViewModel.Tags.Should().OnlyContain(tag => tag.Length == tagLength);
+            }
+
+            private async Task prepareTest(int tagLength)
+            {
+                var tag = Substitute.For<IDatabaseTag>();
+                tag.Name.Returns(getLongTagName(tagLength));
+                var timeEntry = Substitute.For<IDatabaseTimeEntry>();
+
+                timeEntry.Id.Returns(13);
+                timeEntry.Tags.Returns(new IDatabaseTag[] { tag });
+
+                DataSource.TimeEntries.GetById(Arg.Is(timeEntry.Id))
+                    .Returns(Observable.Return(timeEntry));
+                
+                ViewModel.Prepare(timeEntry.Id);
+                await ViewModel.Initialize();
+            }
+
+            private string getLongTagName(int length)
+                => new string(
+                    Enumerable.Range(0, length)
+                    .Select(_ => 'T')
+                    .ToArray());
+        }
     }
 }

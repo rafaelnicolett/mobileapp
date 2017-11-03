@@ -20,7 +20,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
     [Preserve(AllMembers = true)]
     public sealed class EditTimeEntryViewModel : MvxViewModel<long>
     {
-        private const int maxTagLendth = 30;
+        private const int maxTagLength = 30;
 
         private readonly ITogglDataSource dataSource;
         private readonly IMvxNavigationService navigationService;
@@ -308,10 +308,10 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
 
         private string trimTag(string tag)
         {
-            if (tag.Length <= maxTagLendth)
+            if (tag.Length <= maxTagLength)
                 return tag;
 
-            return $"{tag.Substring(0, maxTagLendth)}...";
+            return $"{tag.Substring(0, maxTagLength)}...";
         }
     }
 }

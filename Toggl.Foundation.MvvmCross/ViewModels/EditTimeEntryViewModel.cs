@@ -72,7 +72,7 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             }
         }
 
-        public List<string> Tags { get; private set; }
+        public List<string> Tags { get; private set; } = new List<string>();
 
         [DependsOn(nameof(Tags))]
         public bool HasTags => Tags?.Any() ?? false;
@@ -135,7 +135,6 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             StartTime = timeEntry.Start;
             StopTime = timeEntry.IsRunning() ? (DateTimeOffset?)null : timeEntry.Start.AddSeconds(timeEntry.Duration.Value);
             Billable = timeEntry.Billable;
-            Tags = timeEntry.Tags?.Select(tag => trimTag(tag.Name)).ToList() ?? new List<string>();
             Project = timeEntry.Project?.Name;
             ProjectColor = timeEntry.Project?.Color;
             Task = timeEntry.Task?.Name;
@@ -144,6 +143,8 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
             SyncErrorMessage = timeEntry.LastSyncErrorMessage;
             workspaceId = timeEntry.WorkspaceId;
             SyncErrorMessageVisible = !string.IsNullOrEmpty(SyncErrorMessage);
+
+            onTags(timeEntry.Tags);
             foreach (var tagId in timeEntry.TagIds)
                 tagIds.Add(tagId);
 
@@ -277,6 +278,9 @@ namespace Toggl.Foundation.MvvmCross.ViewModels
 
         private void onTags(IEnumerable<IDatabaseTag> tags)
         {
+            if (tags == null)
+                return;
+
             tags.Select(tag => tag.Name)
                .Select(trimTag)
                .ForEach(Tags.Add);

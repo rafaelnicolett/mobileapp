@@ -152,11 +152,8 @@
     <Compile Include="Sync\States\Push\BaseStates\BaseUnsyncableEntityState.cs" />
     <Compile Include="Sync\States\Push\BaseStates\BaseUpdateEntityState.cs" />
     <Compile Include="Sync\States\Push\Tags\CreateTagState.cs" />
-    <Compile Include="Sync\States\Push\Tags\DeleteLocalTagState.cs" />
-    <Compile Include="Sync\States\Push\Tags\DeleteTagState.cs" />
     <Compile Include="Sync\States\Push\Tags\PushTagState.cs" />
     <Compile Include="Sync\States\Push\Tags\UnsyncableTagState.cs" />
-    <Compile Include="Sync\States\Push\Tags\UpdateTagState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

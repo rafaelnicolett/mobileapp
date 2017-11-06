@@ -5,14 +5,14 @@ using Toggl.PrimeRadiant.Models;
 
 namespace Toggl.Foundation.Sync.States
 {
-    internal sealed class PushTagState : BasePushState<IDatabaseTag>
+    internal sealed class PushTagsState : BasePushState<IDatabaseTag>
     {
-        public PushTagState(ITogglDatabase database)
+        public PushTagsState(ITogglDatabase database)
             : base(database)
         {
         }
 
-        protected override IRepository<IDatabaseTag> GetRepository(IDatabaseTag database)
+        protected override IRepository<IDatabaseTag> GetRepository(ITogglDatabase database)
             => database.Tags;
 
         protected override DateTimeOffset LastChange(IDatabaseTag entity)

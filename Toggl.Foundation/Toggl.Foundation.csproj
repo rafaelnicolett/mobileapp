@@ -152,7 +152,7 @@
     <Compile Include="Sync\States\Push\BaseStates\BaseUnsyncableEntityState.cs" />
     <Compile Include="Sync\States\Push\BaseStates\BaseUpdateEntityState.cs" />
     <Compile Include="Sync\States\Push\Tags\CreateTagState.cs" />
-    <Compile Include="Sync\States\Push\Tags\PushTagState.cs" />
+    <Compile Include="Sync\States\Push\Tags\PushTagsState.cs" />
     <Compile Include="Sync\States\Push\Tags\UnsyncableTagState.cs" />
   </ItemGroup>
   <ItemGroup>

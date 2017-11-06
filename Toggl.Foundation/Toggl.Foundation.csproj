@@ -151,6 +151,12 @@
     <Compile Include="Sync\States\Push\BaseStates\BasePushState.cs" />
     <Compile Include="Sync\States\Push\BaseStates\BaseUnsyncableEntityState.cs" />
     <Compile Include="Sync\States\Push\BaseStates\BaseUpdateEntityState.cs" />
+    <Compile Include="Sync\States\Push\Tags\CreateTagState.cs" />
+    <Compile Include="Sync\States\Push\Tags\DeleteLocalTagState.cs" />
+    <Compile Include="Sync\States\Push\Tags\DeleteTagState.cs" />
+    <Compile Include="Sync\States\Push\Tags\PushTagState.cs" />
+    <Compile Include="Sync\States\Push\Tags\UnsyncableTagState.cs" />
+    <Compile Include="Sync\States\Push\Tags\UpdateTagState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -209,6 +215,7 @@
   <ItemGroup>
     <Folder Include="Sync\States\Push\TimeEntries\" />
     <Folder Include="Sync\States\Push\BaseStates\" />
+    <Folder Include="Sync\States\Push\Tags\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

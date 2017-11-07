@@ -3,20 +3,29 @@ using FsCheck.Xunit;
 using Toggl.Foundation.Sync.States;
 using Xunit;
 using FluentAssertions;
+using FsCheck;
 
 namespace Toggl.Foundation.Tests.Sync.States
 {
     public sealed class InvalidTransitionStateTests
     {
+        [Fact]
+        public void ThrowsWhenTheConstructorArgumentIsNull()
+        {
+            Action creatingState = () => new InvalidTransitionState(null);
+
+            creatingState.ShouldThrow<ArgumentNullException>();
+        }
+
         [Theory]
-        [InlineData(null)]
         [InlineData("")]
         [InlineData("          ")]
-        public void ThrowsWhenTheConstructorArgumentIsNullOrEmpty(string message)
+        [InlineData(null)]
+        public void ThrowsWhenTheConstructorArgumentIsEmpty(string message)
         {
             Action creatingState = () => new InvalidTransitionState(message);
 
-            creatingState.ShouldThrow<ArgumentNullException>();
+            creatingState.ShouldThrow<ArgumentException>();
         }
 
         [Fact]
@@ -33,10 +42,10 @@ namespace Toggl.Foundation.Tests.Sync.States
         }
 
         [Property]
-        public void ThrowsInvalidOperationExceptionWithASpecificMessage(string message)
+        public void ThrowsInvalidOperationExceptionWithASpecificMessage(NonEmptyString message)
         {
             Exception caughtException = null;
-            var state = new InvalidTransitionState(message);
+            var state = new InvalidTransitionState(message.Get);
 
             var observable = state.Start();
             observable.Subscribe(_ => { }, (Exception exception) => caughtException = exception);

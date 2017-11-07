@@ -20,7 +20,6 @@ namespace Toggl.Foundation.Tests.Sync.States
         [Theory]
         [InlineData("")]
         [InlineData("          ")]
-        [InlineData(null)]
         public void ThrowsWhenTheConstructorArgumentIsEmpty(string message)
         {
             Action creatingState = () => new InvalidTransitionState(message);

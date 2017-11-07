@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using CoreText;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Core.ViewModels;
+using MvvmCross.Binding.iOS;
 using MvvmCross.iOS.Views;
 using MvvmCross.Plugins.Color.iOS;
+using MvvmCross.Plugins.Visibility;
 using Toggl.Daneel.Extensions;
 using Toggl.Daneel.Presentation.Attributes;
 using Toggl.Daneel.ViewSources;
+using Toggl.Foundation.Autocomplete.Suggestions;
 using Toggl.Foundation.MvvmCross.Converters;
 using Toggl.Foundation.MvvmCross.Helper;
 using Toggl.Foundation.MvvmCross.ViewModels;
@@ -33,8 +37,11 @@ namespace Toggl.Daneel.ViewControllers
 
             var source = new StartTimeEntryTableViewSource(SuggestionsTableView);
             SuggestionsTableView.Source = source;
+            source.ToggleTasksCommand = new MvxCommand<ProjectSuggestion>(toggleTaskSuggestions);
 
             var timeSpanConverter = new TimeSpanToDurationValueConverter();
+            var invertedVisibilityConverter = new MvxInvertedVisibilityValueConverter();
+            var invertedBoolConverter = new BoolToConstantValueConverter<bool>(false, true);
             var buttonColorConverter = new BoolToConstantValueConverter<UIColor>(
                 Color.StartTimeEntry.ActiveButton.ToNativeColor(),
                 Color.StartTimeEntry.InactiveButton.ToNativeColor()
@@ -44,9 +51,6 @@ namespace Toggl.Daneel.ViewControllers
 
             //TableView
             bindingSet.Bind(source).To(vm => vm.Suggestions);
-            bindingSet.Bind(source)
-                      .For(v => v.ToggleTasksCommand)
-                      .To(vm => vm.ToggleTaskSuggestionsCommand);
 
             bindingSet.Bind(source)
                       .For(v => v.UseGrouping)
@@ -64,6 +68,9 @@ namespace Toggl.Daneel.ViewControllers
             bindingSet.Bind(DescriptionTextView)
                       .For(v => v.BindTextFieldInfo())
                       .To(vm => vm.TextFieldInfo);
+
+            bindingSet.Bind(DescriptionRemainingLengthLabel)
+                      .To(vm => vm.DescriptionRemainingBytes);
 
             //Buttons
             bindingSet.Bind(TagsButton)
@@ -91,11 +98,21 @@ namespace Toggl.Daneel.ViewControllers
                       .To(vm => vm.IsEditingStartDate)
                       .WithConversion(buttonColorConverter);
 
+            bindingSet.Bind(DoneButton)
+                      .For(v => v.Enabled)
+                      .To(vm => vm.DescriptionLengthExceeded)
+                      .WithConversion(invertedBoolConverter);
+
             //Visibility
             bindingSet.Bind(BillableButtonWidthConstraint)
                       .For(v => v.Constant)
                       .To(vm => vm.IsBillableAvailable)
                       .WithConversion(new BoolToConstantValueConverter<nfloat>(42, 0));
+
+            bindingSet.Bind(DescriptionRemainingLengthLabel)
+                      .For(v => v.BindVisible())
+                      .To(vm => vm.DescriptionLengthExceeded)
+                      .WithConversion(invertedVisibilityConverter);
 
             //Commands
             bindingSet.Bind(DoneButton).To(vm => vm.DoneCommand);
@@ -150,6 +167,16 @@ namespace Toggl.Daneel.ViewControllers
             yield return BillableButton;
             yield return DurationButton;
             yield return DateTimeButton;
+        }
+
+        private void toggleTaskSuggestions(ProjectSuggestion parameter)
+        {
+            var offset = SuggestionsTableView.ContentOffset;
+            var frameHeight = SuggestionsTableView.Frame.Height;
+
+            ViewModel.ToggleTaskSuggestionsCommand.Execute(parameter);
+
+            SuggestionsTableView.CorrectOffset(offset, frameHeight);
         }
     }
 }

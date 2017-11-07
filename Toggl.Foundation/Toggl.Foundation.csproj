@@ -154,6 +154,7 @@
     <Compile Include="Sync\States\Push\Tags\CreateTagState.cs" />
     <Compile Include="Sync\States\Push\Tags\PushTagsState.cs" />
     <Compile Include="Sync\States\Push\Tags\UnsyncableTagState.cs" />
+    <Compile Include="Helper\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -213,6 +214,7 @@
     <Folder Include="Sync\States\Push\TimeEntries\" />
     <Folder Include="Sync\States\Push\BaseStates\" />
     <Folder Include="Sync\States\Push\Tags\" />
+    <Folder Include="Helper\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

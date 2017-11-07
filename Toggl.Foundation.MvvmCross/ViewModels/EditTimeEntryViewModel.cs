@@ -10,10 +10,9 @@ using Toggl.Foundation.DataSources;
 using Toggl.Foundation.DTOs;
 using Toggl.Foundation.MvvmCross.Parameters;
 using Toggl.Multivac;
-using static Toggl.Multivac.Extensions.ObservableExtensions;
-using static Toggl.Foundation.MvvmCross.Helper.Constants;
 using Toggl.Multivac.Extensions;
 using Toggl.PrimeRadiant.Models;
+using static Toggl.Foundation.Helper.Constants;
 
 namespace Toggl.Foundation.MvvmCross.ViewModels
 {

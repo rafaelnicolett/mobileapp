@@ -128,7 +128,7 @@ namespace Toggl.Foundation
             var apiDelay = new RetryDelayService(rnd);
             var statusDelay = new RetryDelayService(rnd);
 
-            var push = new PushTagsState(database);
+            var push = new PushTagsState(database.Tags);
             var pushOne = new PushOneEntityState<IDatabaseTag>();
             var create = new CreateTagState(api, database.Tags);
             var unsyncable = new UnsyncableTagState(database.Tags);

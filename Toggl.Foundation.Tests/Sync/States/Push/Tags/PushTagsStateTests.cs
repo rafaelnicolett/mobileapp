@@ -18,20 +18,20 @@ namespace Toggl.Foundation.Tests.Sync.States.Push
 
         private class TheStartMethod : TheStartMethod<IDatabaseTag>
         {
-            protected override BasePushState<IDatabaseTag> CreateState(ITogglDatabase database)
-                => new PushTagsState(database);
+            protected override BasePushState<IDatabaseTag> CreateState(IRepository<IDatabaseTag> repository)
+                => new PushTagsState(repository);
 
             protected override IDatabaseTag CreateUnsyncedEntity(DateTimeOffset lastUpdate = default(DateTimeOffset))
                 => Tag.Dirty(new Ultrawave.Models.Tag { At = lastUpdate });
 
-            protected override void SetupRepositoryToReturn(ITogglDatabase database, IDatabaseTag[] entities)
+            protected override void SetupRepositoryToReturn(IRepository<IDatabaseTag> repository, IDatabaseTag[] entities)
             {
-                database.Tags.GetAll(Arg.Any<Func<IDatabaseTag, bool>>()).Returns(Observable.Return(entities));
+                repository.GetAll(Arg.Any<Func<IDatabaseTag, bool>>()).Returns(Observable.Return(entities));
             }
 
-            protected override void SetupRepositoryToThrow(ITogglDatabase database)
+            protected override void SetupRepositoryToThrow(IRepository<IDatabaseTag> repository)
             {
-                database.Tags.GetAll(Arg.Any<Func<IDatabaseTag, bool>>()).Returns(_ => { throw new TestException(); });
+                repository.GetAll(Arg.Any<Func<IDatabaseTag, bool>>()).Returns(_ => { throw new TestException(); });
             }
         }
     }

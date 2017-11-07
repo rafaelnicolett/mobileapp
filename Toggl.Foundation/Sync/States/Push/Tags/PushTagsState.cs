@@ -7,13 +7,10 @@ namespace Toggl.Foundation.Sync.States
 {
     internal sealed class PushTagsState : BasePushState<IDatabaseTag>
     {
-        public PushTagsState(ITogglDatabase database)
-            : base(database)
+        public PushTagsState(IRepository<IDatabaseTag> repository)
+            : base(repository)
         {
         }
-
-        protected override IRepository<IDatabaseTag> GetRepository(ITogglDatabase database)
-            => database.Tags;
 
         protected override DateTimeOffset LastChange(IDatabaseTag entity)
             => entity.At;

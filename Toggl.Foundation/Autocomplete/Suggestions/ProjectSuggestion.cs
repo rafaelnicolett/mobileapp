@@ -19,6 +19,8 @@ namespace Toggl.Foundation.Autocomplete.Suggestions
 
         public IList<TaskSuggestion> Tasks { get; }
 
+        public bool HasTasks => Tasks?.Count > 0;
+
         public string ProjectName { get; } = "";
 
         public string ClientName { get; } = "";
@@ -26,6 +28,8 @@ namespace Toggl.Foundation.Autocomplete.Suggestions
         public string ProjectColor { get; }
 
         public bool TasksVisible { get; set; }
+
+        public bool Selected { get; set; }
 
         private ProjectSuggestion(long workspaceId, string workspaceName)
         {
